@@ -4,11 +4,11 @@ import shape from '../assets/shape.png';
 
 const Hero = () => {
     return (
-        <div className="w-full bg-purple-50 md:py-36 py-10">
+        <div className="w-full bg-gradient-to-l from-purple-200 to-purple-50 md:py-36 py-10 ">
             <div className="2xl:container flex justify-between items-center sm:flex-row flex-col mx-auto px-3 h-full gap-11">
                 <div className="sm:w-2/3 w-full overflow-hidden py-5 flex justify-center flex-col gap-10 relative">
                     <img src={shape} className="absolute animate-[spin_70s_linear_infinite]"/>
-                    <h1 className="lg:text-5xl sm:text-4xl  text-3xl font-bold text-gray-700 z-10">Transfer Your Money At Secure and fastestTransfer Your Remittance At Secure and fastest</h1>
+                    <h1 className="text-gray-700 xl:text-5xl md:text-4xl text-2xl font-bold">Transfer Your Money At Secure and fastestTransfer Your Remittance At Secure and fastest</h1>
                     <p className="text-sm md:text-base lg:text-lg text-gray-700 font-medium z-10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita vero eius exercitationem nesciunt iusto quasi facere impedit quas vel? Impedit vel laudantium necessitatibus fugiat.</p>
                     <div className="flex items-center gap-9 z-10">
                         <Link to={'/signup'} className='bg-purple-500 hover:bg-purple-600 transition duration-300 sm:px-6 px-3 sm:py-3 py-2 text-white rounded-full' aria-label="Go to signup page">Get Started</Link>
