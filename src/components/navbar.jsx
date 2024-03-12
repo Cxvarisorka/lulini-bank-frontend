@@ -44,7 +44,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className={`${isNavFixed ? 'fixed' : ''} w-full shadow-sm bg-white z-50`}>
+        <header className={`${isNavFixed ? 'fixed' : 'sticky'} w-full shadow-sm bg-white z-50`}>
             <nav className="2xl:container relative mx-auto py-4 px-3 text-sm lg:text-base font-medium uppercase">
                 <div className='flex justify-between items-center'>
                     <Link to='/'><img alt="Lulini Bank's Logo" src={logo} className='sm:w-48 w-36'/></Link>
