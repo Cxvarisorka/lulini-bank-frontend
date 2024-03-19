@@ -5,7 +5,7 @@ const Part = ({icon,title, text}) => {
         <div className='flex flex-col gap-2'>
             <p className='text-purple-500'>{icon}</p>
             <p className='xl:text-2xl text-xl font-bold text-gray-700'>{title}</p>
-            <p className='text-gray-600 font-medium'>{text}</p>
+            <p className='text-gray-600 font-medium text-sm md:text-base'>{text}</p>
         </div>
     )
 }
@@ -47,8 +47,8 @@ const HowItWork = () => {
                         <p className="text-gray-700 xl:text-5xl md:text-4xl text-2xl font-bold">Transfer Money Across<br/> The World In Real Time</p>
                     </div>
                     
-                    <p className='font-semibold text-gray-600'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit ullam, labore ea magnam at ab vero voluptatem alias similique natus nam ex suscipit facere illum fuga et, impedit eligendi voluptates. Sapiente est amet explicabo, dolorem, voluptas vel excepturi nisi voluptatum libero quidem autem quasi, sit quod. Unde autem est eligendi rerum neque?</p>
-                    <p className='font-semibold text-gray-600'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit ullam, labore ea magnam at ab vero voluptatem alias similique natus nam ex suscipit facere illum fuga et, impedit eligendi voluptates. Sapiente est amet explicabo, dolorem, voluptas vel excepturi nisi voluptatum libero quidem autem quasi, sit quod. Unde autem est eligendi rerum neque?</p>
+                    <p className='font-semibold text-gray-600 text-sm md:text-base'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit ullam, labore ea magnam at ab vero voluptatem alias similique natus nam ex suscipit facere illum fuga et, impedit eligendi voluptates. Sapiente est amet explicabo, dolorem, voluptas vel excepturi nisi voluptatum libero quidem autem quasi, sit quod. Unde autem est eligendi rerum neque?</p>
+                    <p className='font-semibold text-gray-600 text-sm md:text-base'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit ullam, labore ea magnam at ab vero voluptatem alias similique natus nam ex suscipit facere illum fuga et, impedit eligendi voluptates. Sapiente est amet explicabo, dolorem, voluptas vel excepturi nisi voluptatum libero quidem autem quasi, sit quod. Unde autem est eligendi rerum neque?</p>
                     <div className='flex xl:gap-7 gap-10 sm:flex-row flex-col'>
                         {mainObjs.map((obj) => {
                             return (
