@@ -6,7 +6,7 @@ const Feature = ({name,icon}) => {
             <p className="text-purple-500">{icon}</p>
             <div className="flex flex-col gap-3">
                 <p className="xl:text-2xl text-xl text-purple-500 font-bold">{name}</p>
-                <p className="font-semibold text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius</p>
+                <p className="font-semibold text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius</p>
             </div>
         </div>
     );
