@@ -3,12 +3,18 @@ import valeriImg from "../assets/personimgs/valeritskhvaradze.png";
 import likaImg from "../assets/personimgs/likajulakidze.jpg";
 import lileImg from "../assets/personimgs/liletskhvaradze.png";
 import niaImg from "../assets/personimgs/niatskhvaradze.jpg";
+import mariImg from "../assets/personimgs/marikavtaradze.png";
 
 const data = [
     {
         fullname: "Luka Tskhvaradze",
         position: "CEO - Founder",
         img: lukaImg
+    },
+    {
+        fullname: "Mari Kavtaradze",
+        position: "CEO - Founder",
+        img: mariImg
     },
     {
         fullname: "Valeri Tskhvaradze",
@@ -30,6 +36,7 @@ const data = [
         position: "Manager",
         img: niaImg
     },
+    
 ]
 
 const Testimonial = ({fullname,position,img}) => {
@@ -53,8 +60,8 @@ const Testimonials = () => {
             <div className="2xl:container mx-auto md:py-24 py-16 flex flex-col items-center gap-12 px-3">
                 <div className="flex flex-col">
                     <div className='flex flex-col gap-5 text-center'>
-                        <p className="uppercase text-purple-500 font-bold xl:text-2xl md:text-xl text-lg">CLIENTS TESTIMONIALS</p>
-                        <p className="text-gray-700 xl:text-5xl md:text-4xl text-2xl font-bold">What Our Client Says</p>
+                        <p className="uppercase text-purple-500 font-bold xl:text-2xl md:text-xl text-lg">STAFF TESTIMONIALS</p>
+                        <p className="text-gray-700 xl:text-5xl md:text-4xl text-2xl font-bold">What Our Staff Says</p>
                     </div>
                 </div>
                 <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-3">

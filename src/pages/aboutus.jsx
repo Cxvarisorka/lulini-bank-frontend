@@ -1,6 +1,14 @@
+import DynamicHero from "../components/dynamichero";
+import OurAgents from "../components/ouragents";
+import OurCompany from "../components/ourcompany";
+
 const AboutUs = () => {
     return (
-        <h1>About Us</h1>
+        <main>
+            <DynamicHero title={"About Us"}/>
+            <OurCompany />
+            <OurAgents />
+        </main>
     )
 }
 
