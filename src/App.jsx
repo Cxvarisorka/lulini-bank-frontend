@@ -9,6 +9,7 @@ import SignUp from './pages/signup.jsx';
 import SignIn from './pages/signin.jsx';
 
 import Navbar from "./components/navbar.jsx";
+import Footer from './components/footer.jsx';
 
 
 
@@ -27,6 +28,7 @@ function App() {
             <Route path='/signin' element={<SignIn />}/>
           </Routes>
       </div>
+      <Footer />
     </>
     
   )

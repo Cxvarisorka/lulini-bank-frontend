@@ -1,8 +1,13 @@
+import DynamicHero from "../components/dynamichero";
+import SignUpComponent from "../components/signupcomponent";
+
 const SignUp = () => {
     return (
-        <div>
-            <h1>SignUp</h1>
-        </div>
+        <>
+            <DynamicHero title={"Signup"}/>
+            <SignUpComponent />
+        </>
+        
     )
 }
 

@@ -1,6 +1,12 @@
+import DynamicHero from "../components/dynamichero.jsx";
+import HowItWork from "../components/howitwork.jsx";
+
 const HowItWorks = () => {
     return (
-        <h1>How It Works</h1>
+        <>
+            <DynamicHero title={"How It Works"}/>
+            <HowItWork />
+        </>
     )
 }
 
