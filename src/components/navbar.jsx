@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import logo from '../assets/Red Modern Initials Letter B Banking Logo (1) (1).png'
 import { Link } from 'react-router-dom'
@@ -37,6 +38,7 @@ const Navbar = () => {
         {linkText: "How It Works", path: "/howitworks"},
         {linkText: "Contact Us", path: "/contactus"},
         {linkText: "Dashboard", path: "/dashboard"},
+
     ]
 
     const toggleNav = () => {

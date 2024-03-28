@@ -41,7 +41,7 @@ const Footer = () => {
                         {
                             navLinks.map(obj => {
                                 return (
-                                    <Link className='font-medium text-gray-700 text-sm md:text-base' to={obj.path}>{obj.linkText}</Link>
+                                    <Link key={obj.linkText} className='font-medium text-gray-700 text-sm md:text-base' to={obj.path}>{obj.linkText}</Link>
                                 )
                             })
                         }
@@ -54,7 +54,7 @@ const Footer = () => {
                         {
                             contactInfo.map(obj => {
                                 return (
-                                    <p className='font-medium text-gray-700 text-sm md:text-base'><span className='font-bold'>{obj.title}</span>: {obj.text}</p>
+                                    <p key={obj.title} className='font-medium text-gray-700 text-sm md:text-base'><span className='font-bold'>{obj.title}</span>: {obj.text}</p>
                                 )
                             })
                         }
