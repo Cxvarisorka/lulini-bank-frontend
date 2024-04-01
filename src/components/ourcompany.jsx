@@ -17,9 +17,9 @@ const OurCompany = () => {
                         <p className="font-semibold text-gray-600 text-sm md:text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias, aliquam commodi deleniti dicta ducimus ea eligendi est exercitationem expedita facilis harum inventore iste iusto maiores maxime molestias obcaecati provident quod ratione similique soluta suscipit totam unde voluptatem. Delectus enim et incidunt placeat tempora. Blanditiis corporis eius eveniet ipsa minima</p>
                         <div className="grid sm:grid-cols-2 gap-7">
                             {
-                                companyInfo.map(value => {
+                                companyInfo.map((value,i) => {
                                     return (
-                                        <div className="flex gap-3 items-center">
+                                        <div key={i} className="flex gap-3 items-center">
                                             <p className="bg-purple-500 flex justify-center items-center p-2 text-white rounded-full">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />

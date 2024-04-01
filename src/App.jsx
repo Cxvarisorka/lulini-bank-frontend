@@ -10,6 +10,7 @@ import SignIn from './pages/signin.jsx';
 
 import Navbar from "./components/navbar.jsx";
 import Footer from './components/footer.jsx';
+import NotFound from './components/notfound.jsx';
 
 
 
@@ -26,6 +27,7 @@ function App() {
             <Route path='/howitworks' element={<HowItWorks />} />
             <Route path='/signup' element={<SignUp />}/>
             <Route path='/signin' element={<SignIn />}/>
+            <Route path='*' element={<NotFound />}/>
           </Routes>
       </div>
       <Footer />

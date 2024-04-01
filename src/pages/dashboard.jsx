@@ -1,6 +1,10 @@
+import SideBar from "../components/sidebar.jsx";
+
 const Dashboard = () => {
     return (
-        <h1 className="">Dashboard</h1>
+        <>
+            <SideBar/>
+        </>
     )
 }
 

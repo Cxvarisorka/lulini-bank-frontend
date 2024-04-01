@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const inputClass =
   "w-full p-4 border-2 border-purple-500 focus:outline-none rounded col-span-3";
 
@@ -204,7 +205,7 @@ const SignUpComponent = () => {
           </p>
         </form>
       </div>
-      <ToastContainer />
+    
     </>
   );
 };
