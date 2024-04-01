@@ -53,7 +53,7 @@ const SignInComponent = () => {
               id="password"
             />
           </div>
-          <button className="col-span-6 bg-purple-500 text-white p-3 py-4 rounded font-semibold md:text-xl border-2 border-purple-500 hover:bg-transparent hover:text-purple-500 duration-300">
+          <button type="button" className="col-span-6 bg-purple-500 text-white p-3 py-4 rounded font-semibold md:text-xl border-2 border-purple-500 hover:bg-transparent hover:text-purple-500 duration-300">
             Login
           </button>
           <p className="text-gray-700">
