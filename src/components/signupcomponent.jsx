@@ -71,7 +71,6 @@ const SignUpComponent = () => {
     getCountries();
   }, []);
 
-  const api = "http://localhost:3000";
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -81,44 +80,6 @@ const SignUpComponent = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const postReq = async () => {
-      try {
-        const res = await fetch(`${api}/api/accounts/signup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...formData,
-          }),
-        });
-
-        const data = await res.json();
-
-        console.log(data);
-
-        if (res.status === 200) {
-          // Account created successfully
-          toast.success(data.msg);
-        } else {
-          // Handle other status codes if needed
-          toast.error(data.msg);
-        }
-
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    postReq();
-
-    console.log(formData); // Access form data here
-    // Add your form submission logic here
-  };
 
   const inputs = [
     {
@@ -184,7 +145,6 @@ const SignUpComponent = () => {
           alt="Signup Image"
         />
         <form
-          onSubmit={handleSubmit}
           className="shadow-2xl rounded p-7 lg:w-1/2 md:w-2/3 w-full flex flex-col gap-5"
         >
           {inputs.map((obj) => {

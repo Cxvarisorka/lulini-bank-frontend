@@ -9,45 +9,8 @@ import { Link } from "react-router-dom";
 const SignInComponent = () => {
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
-  const [account, setAccounts] = useState({});
 
-  const api = "http://localhost:3000";
-
-  const submitForm = (e) => {
-    e.preventDefault();
-
-    const postReq = async () => {
-      try {
-        const res = await fetch(`${api}/api/accounts/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            emailInput: emailInput.current.value,
-            passwordInput: passwordInput.current.value,
-          }),
-        });
-
-        const data = await res.json();
-
-        if (res.status === 200) {
-          // Account created successfully
-          toast.success(data.msg);
-        } else {
-          // Handle other status codes if needed
-          toast.error(data.msg);
-        }
-
-        setAccounts(data.account);
-        
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    postReq();
-  };
+  
 
   return (
     <>
@@ -55,7 +18,6 @@ const SignInComponent = () => {
         <img className="lg:w-1/2 md:w-5/12 sm:w-1/2" src={signImg} />
         <form
           className="shadow-2xl rounded p-7 lg:w-1/2 md:w-2/3 w-full flex flex-col gap-5"
-          onSubmit={(e) => submitForm(e)}
         >
           <div className="flex flex-col gap-2">
             <label
