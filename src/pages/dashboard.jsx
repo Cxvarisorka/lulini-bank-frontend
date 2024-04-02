@@ -1,9 +1,14 @@
+import { Outlet } from "react-router-dom";
 import SideBar from "../components/sidebar.jsx";
+
 
 const Dashboard = () => {
     return (
         <>
-            <SideBar/>
+            <div className="relative flex ">
+                <SideBar />
+                <Outlet />
+            </div>
         </>
     )
 }

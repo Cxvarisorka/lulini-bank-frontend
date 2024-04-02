@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard.jsx";
 import HowItWorks from "./pages/howitworks.jsx";
 import SignUp from './pages/signup.jsx';
 import SignIn from './pages/signin.jsx';
+import SendMoney from "./components/sendmoney.jsx";
 
 import Navbar from "./components/navbar.jsx";
 import Footer from './components/footer.jsx';
@@ -23,7 +24,9 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/aboutus' element={<AboutUs />} />
             <Route path='/contactus' element={<ContactUs />} />
-            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/dashboard' element={<Dashboard />}>
+              <Route path='sendmoney' element={<SendMoney />} />
+            </Route>
             <Route path='/howitworks' element={<HowItWorks />} />
             <Route path='/signup' element={<SignUp />}/>
             <Route path='/signin' element={<SignIn />}/>

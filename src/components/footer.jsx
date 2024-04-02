@@ -26,7 +26,7 @@ const Footer = () => {
     ]
 
     return (
-        <footer className='bg-purple-50'>
+        <footer className='bg-purple-50 relative z-40'>
             <div className='2xl:container mx-auto md:py-24 py-16 flex justify-between md:flex-row flex-col items-baseline md:gap-8 gap-20 px-3'>
                 
                 <div className='md:w-1/2 w-full flex flex-col justify-center md:text-start text-center md:items-start items-center gap-8'>
