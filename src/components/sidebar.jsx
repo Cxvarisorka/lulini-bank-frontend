@@ -88,8 +88,8 @@ const SideBar = () => {
         setIsOpen(curValue => !curValue);
     };
 
-    const openClass = "md:w-72 w-24 shadow-xl h-screen duration-300";
-    const closeClass = 'w-24 shadow-xl duration-300 h-screen'
+    const openClass = "md:w-72 w-24 shadow-xl xl:h-screen duration-300";
+    const closeClass = 'w-24 shadow-xl duration-300 xl:h-screen'
 
     return (
         <div className='flex sticky top-0 '>

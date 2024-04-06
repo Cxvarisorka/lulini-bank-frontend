@@ -124,6 +124,7 @@ function DonutChartUsageExample() {
             valueFormatter={valueFormatter}
             colors={['indigo', 'violet', 'purple', 'blue']}
             className="w-40"
+            variant="pie"
           />
           <Legend
             categories={["Total amount", 'In Money', 'Out Money', "Completed Transactions"]}
@@ -137,7 +138,7 @@ function DonutChartUsageExample() {
 
 const TopDashboard = () => {
     return (
-        <div className="w-full flex lg:flex-row flex-col justify-between md:items-center md:gap-0 gap-3"> 
+        <div className="w-full flex lg:flex-row flex-col justify-between lg:items-center lg:gap-0 gap-3"> 
             <p className="lg:text-2xl text-xl"><span className="text-purple-500">Welcome Back</span>, Luka Tskhvaradze</p>
             <div className="flex items-center lg:gap-4 gap-2">
                 <img src={profileImg} className="lg:w-14 lg:h-14 w-11 h-11 rounded-full object-cover" />
@@ -182,8 +183,8 @@ const DashboardComponent = () => {
             <div className="flex flex-col gap-5">
                 <TopDashboard />
                 <CardsComponent cardInfo={cardInfo} />
-                <div className="grid grid-cols-4 w-full gap-5">
-                    <div className="bg-purple-100 p-5 rounded-lg w-full col-span-3">
+                <div className="grid xl:grid-cols-4 w-full gap-5">
+                    <div className="bg-purple-100 p-5 rounded-lg w-full xl:col-span-3">
                         <BarChartHero></BarChartHero>
                     </div>
                     <div className="bg-purple-100 p-5 rounded-lg">
