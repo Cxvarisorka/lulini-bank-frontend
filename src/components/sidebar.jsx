@@ -10,9 +10,9 @@ const activeClass = "border-r-4 border-purple-600 bg-purple-100";
 const BarItem = ({name,icon,link,active, eventHandler, index, isOpen}) => {
     return (
         <Link to={link} onClick={() => eventHandler(index)} className={`w-full p-5 hover:bg-purple-50 duration-300 ${index === active ? activeClass : ''}`}>
-            <div  className={`flex gap-3 items-center ${isOpen ? "" : "justify-center"}`}>
+            <div  className={`flex gap-3 items-center ${isOpen ? "md:justify-stretch" : "justify-center"}  justify-center`}>
                 <span className='text-purple-600'>{icon}</span>
-                <p className={`${isOpen ? "block" : "hidden"} font-semibold text-gray-700 sm:text-x text-lg`}>{name}</p>
+                <p className={`${isOpen ? "md:block hidden" : "hidden"} font-semibold text-gray-700 sm:text-x text-lg `}>{name}</p>
             </div>
         </Link>
     )
@@ -88,11 +88,11 @@ const SideBar = () => {
         setIsOpen(curValue => !curValue);
     };
 
-    const openClass = "w-80 shadow-xl h-screen duration-300";
-    const closeClass = 'w-24 shadow-xl h-screen duration-300'
+    const openClass = "md:w-72 w-24 shadow-xl h-screen duration-300";
+    const closeClass = 'w-24 shadow-xl duration-300 h-screen'
 
     return (
-        <div className='flex sticky top-0'>
+        <div className='flex sticky top-0 '>
             <div className={isOpen ? openClass : closeClass}>
                 <div className='w-full flex flex-col'>
                     {
@@ -102,22 +102,16 @@ const SideBar = () => {
                             )
                         })
                     }
- 
+                    <div className='w-full p-5 hover:bg-purple-50 duration-300 md:block hidden'>
+                        <div className={`flex gap-3 items-center ${isOpen ? "" : "justify-center"}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="sm:w-10 sm:h-10 w-8 h-8 text-purple-600 cursor-pointer" onClick={handleBarClick}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                            </svg>
+                            <p className={`${isOpen ? "block" : "hidden"} font-semibold text-gray-700 sm:text-x text-lg`}>Menu</p>
+                        </div>
+                    </div>  
                 </div>
             </div>
-            {/* <div className='flex justify-between w-full h-12 text-gray-800'>
-                <div className='flex gap-3  items-center'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer" onClick={handleBarClick}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
-                    </svg>
-                    <p className='font-bold  sm:text-xl text-lg'>Dashboard</p>
-
-                </div>
-                <div className='flex gap-3 items-center'>
-                    <img src={meImg} className=' rounded-full w-10 h-10 object-cover'/>
-                    <p className='sm:text-xl font-medium'>Luka Tskhvaradze</p>
-                </div>
-            </div> */}
         </div>
     )
 }
