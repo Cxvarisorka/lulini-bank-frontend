@@ -9,10 +9,10 @@ const activeClass = "border-r-4 border-purple-600 bg-purple-100";
 
 const BarItem = ({name,icon,link,active, eventHandler, index, isOpen}) => {
     return (
-        <Link to={link} onClick={() => eventHandler(index)} className={`w-full p-5 hover:bg-purple-50 duration-300 ${index === active ? activeClass : ''}`}>
+        <Link to={link} onClick={() => eventHandler(index)} className={`sm:w-full flex items-start p-5 hover:bg-purple-50 duration-300 ${index === active ? activeClass : ''}`}>
             <div  className={`flex gap-3 items-center ${isOpen ? "md:justify-stretch" : "justify-center"}  justify-center`}>
                 <span className='text-purple-600'>{icon}</span>
-                <p className={`${isOpen ? "md:block hidden" : "hidden"} font-semibold text-gray-700 sm:text-x text-lg `}>{name}</p>
+                <p className={`${isOpen ? "md:block sm:hidden" : "sm:hidden"} font-semibold text-gray-700 sm:text-x text-lg `}>{name}</p>
             </div>
         </Link>
     )
@@ -88,11 +88,11 @@ const SideBar = () => {
         setIsOpen(curValue => !curValue);
     };
 
-    const openClass = "md:w-72 w-24 shadow-xl xl:h-screen duration-300";
-    const closeClass = 'w-24 shadow-xl duration-300 xl:h-screen'
+    const openClass = "md:w-72 sm:w-24 w-full sm:h-auto shadow-xl  duration-300";
+    const closeClass = 'sm:w-24 sm:h-auto w-full shadow-xl duration-300'
 
     return (
-        <div className='flex sticky top-0 '>
+        <div className='flex'>
             <div className={isOpen ? openClass : closeClass}>
                 <div className='w-full flex flex-col'>
                     {
@@ -107,7 +107,7 @@ const SideBar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="sm:w-10 sm:h-10 w-8 h-8 text-purple-600 cursor-pointer" onClick={handleBarClick}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                             </svg>
-                            <p className={`${isOpen ? "block" : "hidden"} font-semibold text-gray-700 sm:text-x text-lg`}>Menu</p>
+                            <p className={`${isOpen ? "block" : "sm:hidden"} font-semibold text-gray-700 sm:text-x text-lg`}>Menu</p>
                         </div>
                     </div>  
                 </div>

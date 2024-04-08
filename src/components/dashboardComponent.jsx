@@ -1,8 +1,10 @@
 import profileImg from "../assets/personimgs/lukatskhvaradze.png";
 
 import { BarChart, DonutChart, Legend } from '@tremor/react';
+import { useContext, useState, useEffect } from "react";
 
 import {Link} from "react-router-dom";
+import { MainInfoContext } from "../context/mainFetchInfo";
 
 const cardInfo = [
     {
@@ -30,7 +32,7 @@ const cardInfo = [
         </svg>
     },
     {
-        title: "Completed Transactions",
+        title: "Completed",
         amount: 5500,
         button: "View",
         icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="sm:w-10 sm:h-10 w-8 h-8">
@@ -84,22 +86,64 @@ const sales = [
       sales: 390,
     },
 ];
+
 const transactions = [
     { date: '2024-01-01', 'Transactions': 500 },
     { date: '2024-01-03', 'Transactions': 200 },
     { date: '2024-01-01', 'Transactions': 1200 },
     { date: '2024-01-01', 'Transactions': 700 },
     { date: '2024-01-01', 'Transactions': 100 },
-    { date: '2024-01-01', 'Transactions': 800 },
-    { date: '2024-01-01', 'Transactions': 500 },
-    { date: '2024-01-01', 'Transactions': 900 },
 ];
-  
+
+const latesTransactions = [
+    {
+      name: "Mariam Kavtaradze",
+      type: "Send",
+      money: 1000,
+      date: new Date().toDateString(),
+      process: "Completed",
+      from: "GEL",
+      to: "USD"
+    },
+    {
+      name: "Lile Tskhvaradze",
+      type: "Get",
+      money: 800,
+      date: new Date().toDateString(),
+      process: "Completed",
+      from: "USD",
+      to: "GEL",
+    },
+    {
+      name: "Nia Tskhvaradze",
+      type: "Send",
+      money: 400,
+      date: new Date().toDateString(),
+      process: "Completed",
+      from: "GEL",
+      to: "GEL"
+    },
+    {
+      name: "Lika Julakidze",
+      type: "Send",
+      money: 1000,
+      date: new Date().toDateString(),
+      process: "Cancelled",
+      from: "GEL",
+      to: "GEL"
+    },
+    {
+      name: "Valeri Tskhvaradze",
+      type: "Get",
+      money: 300,
+      date: new Date().toDateString(),
+      process: "Completed",
+      from: "EUR",
+      to: "GEL"
+    },
+]
   
 const dataFormatter = (number) => Intl.NumberFormat('us').format(number).toString();
-
-const valueFormatter = (number) => `$ ${Intl.NumberFormat('us').format(number).toString()}`;
-
   
 const BarChartHero = () => (
     <BarChart
@@ -121,7 +165,7 @@ function DonutChartUsageExample() {
             data={cardInfo}
             category="amount"
             index="title"
-            valueFormatter={valueFormatter}
+            valueFormatter={dataFormatter}
             colors={['indigo', 'violet', 'purple', 'blue']}
             className="w-40"
             variant="pie"
@@ -177,10 +221,70 @@ const CardsComponent = ({cardInfo}) => {
     )
 }
 
+
+const TransactionComponent = ({ name, type, money, date, process, from, to , convertValue}) => {
+  const convertedValue = convertValue(money, to, from);
+
+  return (
+      <div className="text-white flex sm:flex-row flex-col justify-between p-5 rounded-lg sm:items-center bg-purple-500 sm:gap-0 gap-2">
+          <div className="flex flex-col gap-2">
+              <p className="lg:text-xl text-lg font-bold">{name}</p>
+              <p>{date}</p>
+              <p className="lg:text-xl text-lg font-medium">{process}</p>
+          </div>
+          <div className="flex flex-col gap-2 items-end">
+              <p className="lg:text-2xl text-lg">{type === "Get" ? "Received: " : "Sent: "} {money} {from}</p>
+              <p className="lg:text-lg">{type === "Get" ? "Recipient Sent: " : "Recipient Received: "} {convertedValue} {to}</p>
+          </div>
+      </div>
+  )
+}
+
+
+const TransactionsComponent = () => {
+    const {rates} = useContext(MainInfoContext);
+
+    const [convertedValue, setConvertedValue] = useState();
+    
+    if(!rates && !latesTransactions){
+      return (
+        <div className="bg-purple-500 p-5 text-3xl font-bold text-white rounded-lg flex justify-center items-center"><p>Loading...</p></div>
+      )
+    }
+
+    const convertValue = (value, to, from) => {
+      const fromCurrencyRate = rates.find(([code]) => code === from)[1];
+      const toCurrencyRate = rates.find(([code]) => code === to)[1];
+    
+      const result = (value / fromCurrencyRate) * toCurrencyRate;
+    
+      return result.toFixed(2);
+    }
+    
+
+    return (
+        <div className="flex flex-col gap-8">
+            <div className="w-full flex lg:flex-row flex-col justify-between lg:gap-0 gap-3"> 
+              <p className="lg:text-2xl text-xl"><span className="text-purple-500">Latest</span> Transactions</p>
+            </div>
+            <div className="flex flex-col gap-4">
+              {
+                !rates ? "Loading..." :
+                latesTransactions.map((obj, i) => {
+                  return (
+                    <TransactionComponent {...obj} key={i} convertValue={convertValue} convertedValue={convertedValue}/>
+                  )
+                })
+              }
+            </div>
+        </div>
+    )
+}
+
 const DashboardComponent = () => {
     return (
         <div className="p-8 w-full">
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-8">
                 <TopDashboard />
                 <CardsComponent cardInfo={cardInfo} />
                 <div className="grid xl:grid-cols-4 w-full gap-5">
@@ -191,6 +295,7 @@ const DashboardComponent = () => {
                         <DonutChartUsageExample></DonutChartUsageExample>
                     </div>
                 </div>
+                <TransactionsComponent />
             </div>
         </div>
     )
