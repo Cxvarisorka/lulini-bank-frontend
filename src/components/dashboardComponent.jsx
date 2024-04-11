@@ -180,7 +180,7 @@ function DonutChartUsageExample() {
     );
 }
 
-const TopDashboard = () => {
+export const TopDashboard = () => {
     return (
         <div className="w-full flex lg:flex-row flex-col justify-between lg:items-center lg:gap-0 gap-3"> 
             <p className="lg:text-2xl text-xl"><span className="text-purple-500">Welcome Back</span>, Luka Tskhvaradze</p>
@@ -243,6 +243,8 @@ const TransactionComponent = ({ name, type, money, date, process, from, to , con
 
 const TransactionsComponent = () => {
     const {rates} = useContext(MainInfoContext);
+
+    console.log(rates)
 
     const [convertedValue, setConvertedValue] = useState();
     

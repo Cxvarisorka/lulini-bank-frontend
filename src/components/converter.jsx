@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { MainInfoContext } from "../context/mainFetchInfo";
 
 const Option = ({ code, value }) => {
     return (
@@ -7,38 +8,18 @@ const Option = ({ code, value }) => {
 };
 
 const Converter = () => {
-    const [rates, setRates] = useState([]);
+    const {rates, convertCurrency} = useContext(MainInfoContext)
     const [convertedValue, setConvertedValue] = useState(0);
     const [exchangeRateText, setExchangeRateText] = useState("");
     const fromCountry = useRef(null);
     const toCountry = useRef(null);
 
-    const getData = async (base = "USD") => {
-        try {
-            const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${base}`);
-            const data = await res.json();
-            setRates(Object.entries(data.rates));
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    useEffect(() => {
-        getData();
-    }, []);
-
-    const convertCurrency = () => {
-        const fromCurrencyRate = rates.find(([code]) => code === fromCountry.current.value)[1];
-        const toCurrencyRate = rates.find(([code]) => code === toCountry.current.value)[1];
-        const inputValue = 1; 
-        const result = (inputValue / fromCurrencyRate) * toCurrencyRate;
-        setConvertedValue(result.toFixed(2));
-        setExchangeRateText(`1 ${fromCountry.current.value} = ${result.toFixed(2)} ${toCountry.current.value}`);
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        convertCurrency();
+        const [convertedValueResult, exchangeRateTextResult] = convertCurrency(fromCountry.current.value, toCountry.current.value);
+        setConvertedValue(convertedValueResult);
+        setExchangeRateText(exchangeRateTextResult);
     };
 
     return (

@@ -3,7 +3,9 @@ import { createContext, useState, useEffect } from "react";
 const MainInfoContext = createContext();
 
 const MainInfoProvider = ({children}) => {
-    const [rates,setRates] = useState();
+    const [rates,setRates] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const userCountry = "Georgia";
 
     useEffect(() => {
         const getData = async (base = "USD") => {
@@ -19,21 +21,37 @@ const MainInfoProvider = ({children}) => {
         getData();
     }, []);
 
+    useEffect(() => {
+        const getCountries = async () => {
+          try {
+            const res = await fetch("https://restcountries.com/v3.1/all");
+            const data = await res.json();
+    
+            setCountries(data);
+          } catch (err) {
+            console.log(err);
+          }
+        };
+    
+        getCountries();
+    }, []);
 
 
-    // const convertCurrency = ({fromCountry,toCountry, setConvertedValue, setExchangeRateText}) => {
-    //     const fromCurrencyRate = rates.find(([code]) => code === fromCountry)[1];
-    //     const toCurrencyRate = rates.find(([code]) => code === toCountry)[1];
+
+    const convertCurrency = (fromCountry,toCountry, inputValue = 1) => {
+        const fromCurrencyRate = rates.find(([code]) => code === fromCountry)?.[1];
+
+        const toCurrencyRate = rates.find(([code]) => code === toCountry)?.[1];
+
         
-    //     const inputValue = 1; 
-    //     const result = (inputValue / fromCurrencyRate) * toCurrencyRate;
+        const result = (inputValue / fromCurrencyRate) * toCurrencyRate;
 
-    //     setConvertedValue(result.toFixed(2));
-    //     setExchangeRateText(`1 ${fromCountry.current.value} = ${result.toFixed(2)} ${toCountry.current.value}`);
-    // };
+        return [result.toFixed(2), `${inputValue} ${fromCountry} = ${result.toFixed(2)} ${toCountry}`];
+        
+    };
 
     return (
-        <MainInfoContext.Provider value={{ rates }}>
+        <MainInfoContext.Provider value={{ rates, convertCurrency, countries, userCountry }}>
             {children}
         </MainInfoContext.Provider>
     )

@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import signImg from "../assets/login.png";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MainInfoContext } from "../context/mainFetchInfo";
 
 
 const inputClass =
@@ -42,12 +43,12 @@ const InputPart = ({
   );
 };
 
-const OptionPart = ({ commonName }) => {
+const OptionPart = ({ commonName}) => {
   return <option value={commonName}>{commonName}</option>;
 };
 
 const SignUpComponent = () => {
-  const [countries, setCountries] = useState([]);
+  const {countries} = useContext(MainInfoContext);
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -57,20 +58,8 @@ const SignUpComponent = () => {
     country: "",
   });
 
-  useEffect(() => {
-    const getCountries = async () => {
-      try {
-        const res = await fetch("https://restcountries.com/v3.1/all");
-        const data = await res.json();
+  console.log(countries)
 
-        setCountries(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getCountries();
-  }, []);
 
 
   const handleInputChange = (e) => {
@@ -169,23 +158,29 @@ const SignUpComponent = () => {
               className="text-gray-700 font-medium md:text-base text-sm"
             >
               Choose Country
+            
             </label>
-            <select
+            {
+              countries.length > 0 ?
+              <select
               id="countires"
               className={inputClass}
               name="country"
               value={formData.country}
               onChange={handleInputChange}
             >
-              {countries.map((obj) => {
-                return (
-                  <OptionPart
-                    key={obj.name.common}
-                    commonName={obj.name.common}
-                  />
-                );
-              })}
-            </select>
+                {countries.map((obj) => {
+                  return (
+                    <OptionPart
+                      key={obj.name.common}
+                      commonName={obj.name.common}
+                    />
+                  );
+                })}
+            </select> : "Loading..."
+            }
+              
+            
           </div>
 
           <button

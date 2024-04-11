@@ -12,7 +12,7 @@ const BarItem = ({name,icon,link,active, eventHandler, index, isOpen}) => {
         <Link to={link} onClick={() => eventHandler(index)} className={`sm:w-full flex items-start p-5 hover:bg-purple-50 duration-300 ${index === active ? activeClass : ''}`}>
             <div  className={`flex gap-3 items-center ${isOpen ? "md:justify-stretch" : "justify-center"}  justify-center`}>
                 <span className='text-purple-600'>{icon}</span>
-                <p className={`${isOpen ? "md:block sm:hidden" : "sm:hidden"} font-semibold text-gray-700 sm:text-x text-lg `}>{name}</p>
+                <p className={`${isOpen ? "md:block sm:hidden" : "sm:hidden"} sm:font-semibold font-medium text-gray-700 sm:text-xl `}>{name}</p>
             </div>
         </Link>
     )
