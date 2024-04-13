@@ -39,6 +39,7 @@ const MainInfoProvider = ({children}) => {
 
 
     const convertCurrency = (fromCountry,toCountry, inputValue = 1) => {
+        console.log(fromCountry, toCountry)
         const fromCurrencyRate = rates.find(([code]) => code === fromCountry)?.[1];
 
         const toCurrencyRate = rates.find(([code]) => code === toCountry)?.[1];

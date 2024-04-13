@@ -222,8 +222,11 @@ const CardsComponent = ({cardInfo}) => {
 }
 
 
-const TransactionComponent = ({ name, type, money, date, process, from, to , convertValue}) => {
-  const convertedValue = convertValue(money, to, from);
+const TransactionComponent = ({ name, type, money, date, process, from, to , convertCurrency}) => {
+  const convertedValue = convertCurrency(from, to, money);
+
+
+  console.log(convertedValue)
 
   return (
       <div className="text-white flex sm:flex-row flex-col justify-between p-5 rounded-lg sm:items-center bg-purple-500 sm:gap-0 gap-2">
@@ -234,7 +237,7 @@ const TransactionComponent = ({ name, type, money, date, process, from, to , con
           </div>
           <div className="flex flex-col gap-2 items-end">
               <p className="lg:text-2xl text-lg">{type === "Get" ? "Received: " : "Sent: "} {money} {from}</p>
-              <p className="lg:text-lg">{type === "Get" ? "Recipient Sent: " : "Recipient Received: "} {convertedValue} {to}</p>
+              <p className="lg:text-lg">{type === "Get" ? "Recipient Sent: " : "Recipient Received: "} {convertedValue[0]} {to}</p>
           </div>
       </div>
   )
@@ -242,7 +245,7 @@ const TransactionComponent = ({ name, type, money, date, process, from, to , con
 
 
 const TransactionsComponent = () => {
-    const {rates} = useContext(MainInfoContext);
+    const {rates, convertCurrency} = useContext(MainInfoContext);
 
     console.log(rates)
 
@@ -254,15 +257,7 @@ const TransactionsComponent = () => {
       )
     }
 
-    const convertValue = (value, to, from) => {
-      const fromCurrencyRate = rates.find(([code]) => code === from)[1];
-      const toCurrencyRate = rates.find(([code]) => code === to)[1];
-    
-      const result = (value / fromCurrencyRate) * toCurrencyRate;
-    
-      return result.toFixed(2);
-    }
-    
+  
 
     return (
         <div className="flex flex-col gap-8">
@@ -274,7 +269,7 @@ const TransactionsComponent = () => {
                 !rates ? "Loading..." :
                 latesTransactions.map((obj, i) => {
                   return (
-                    <TransactionComponent {...obj} key={i} convertValue={convertValue} convertedValue={convertedValue}/>
+                    <TransactionComponent {...obj} key={i} convertCurrency={convertCurrency} convertedValue={convertedValue}/>
                   )
                 })
               }

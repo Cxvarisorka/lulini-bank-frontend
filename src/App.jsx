@@ -13,6 +13,8 @@ import DashboardComponent from './components/dashboardComponent.jsx';
 import Navbar from "./components/navbar.jsx";
 import Footer from './components/footer.jsx';
 import NotFound from './components/notfound.jsx';
+import Recipients from './components/recipients.jsx';
+
 
 
 
@@ -28,6 +30,7 @@ function App() {
             <Route path='/dashboard' element={<Dashboard />}>
               <Route index element={<DashboardComponent />} />
               <Route path='sendmoney' element={<SendMoney />} />
+              <Route path='recipients' element={<Recipients />} />
             </Route>
             <Route path='/howitworks' element={<HowItWorks />} />
             <Route path='/signup' element={<SignUp />}/>
