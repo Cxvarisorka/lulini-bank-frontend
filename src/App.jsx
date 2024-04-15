@@ -7,13 +7,13 @@ import Dashboard from "./pages/dashboard.jsx";
 import HowItWorks from "./pages/howitworks.jsx";
 import SignUp from './pages/signup.jsx';
 import SignIn from './pages/signin.jsx';
-import SendMoney from "./components/sendmoney.jsx";
-import DashboardComponent from './components/dashboardComponent.jsx';
+import SendMoney from "./components/DashboardComponent/sendmoney.jsx";
+import DashboardComponent from './components/DashboardComponent/dashboardComponent.jsx';
 
 import Navbar from "./components/navbar.jsx";
 import Footer from './components/footer.jsx';
 import NotFound from './components/notfound.jsx';
-import Recipients from './components/recipients.jsx';
+import Recipients from './components/DashboardComponent/recipients.jsx';
 
 
 

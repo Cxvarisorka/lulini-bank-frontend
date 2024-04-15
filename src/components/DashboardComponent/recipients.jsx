@@ -1,4 +1,4 @@
-import { TopDashboard } from "./dashboardComponent";
+import TopDashboard from "./dashboardParts/topDashboard"
 
 const recipientsInfo = [
     {
@@ -75,9 +75,9 @@ const Recipient = ({fullName, username, email, phone, country, city, accountNumb
             </div> 
             <div className="flex flex-col lg:gap-3 gap-2">
                 {
-                    labels.map((obj) => {
+                    labels.map((obj, i) => {
                         return (
-                            <div className="flex flex-col lg:gap-3 gap-2">
+                            <div key={i} className="flex flex-col lg:gap-3 gap-2">
                                 <div className="w-full flex justify-between" key={obj.accountNumber}>
                                     <p className="lg:text-xl font-medium">{obj.labeltext}</p>
                                     <p className="lg:text-xl">{obj.labelValue}</p>
@@ -96,14 +96,13 @@ const Recipient = ({fullName, username, email, phone, country, city, accountNumb
 const Recipients = () => {
     return (
         <div className="w-full p-8 flex flex-col gap-8">
-            <TopDashboard />
-
+            <TopDashboard userName={"Luka Tskhvaradze"}/>
             <div className="flex flex-col xl:gap-8 gap-4">
                 <div className="flex flex-col gap-3">
                     {
-                        recipientsInfo.map(obj => {
+                        recipientsInfo.map((obj, i) => {
                             return (
-                                <Recipient {...obj} />
+                                <Recipient key={i} {...obj} />
                             )
                         })
                     }

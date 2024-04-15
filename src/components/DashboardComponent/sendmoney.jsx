@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { TopDashboard } from "./dashboardComponent";
-import { MainInfoContext } from "../context/mainFetchInfo";
+import { MainInfoContext } from "../../context/mainFetchInfo";
+import TopDashboard from "./dashboardParts/topDashboard";
 
 const SendForm = ({formData, handleInputChange, countries, rates}) => {
 
@@ -149,7 +149,7 @@ const SendMoney = () => {
 
     return (
         <div className="w-full p-8 flex flex-col gap-8">
-            <TopDashboard />
+            <TopDashboard userName={"Luka tskhvaradze"}/>
             <div className="grid lg:grid-cols-6 xl:gap-8 gap-4">
                 <SendForm formData={formData} handleInputChange={handleInputChange} countries={countries} rates={rates}/>
                 <SendPreview senderAmount={formData.senderAmount} fromCountry={formData.senderCurrency} toCountry={formData.recipientCurrency}/>
