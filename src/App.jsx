@@ -14,6 +14,8 @@ import Navbar from "./components/navbar.jsx";
 import Footer from './components/footer.jsx';
 import NotFound from './components/notfound.jsx';
 import Recipients from './components/DashboardComponent/recipients.jsx';
+import AddRecipient from './components/DashboardComponent/addrecipient.jsx';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -22,6 +24,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <ToastContainer />
       <div>
           <Routes>
             <Route path='/' element={<Home />} />
@@ -31,6 +34,7 @@ function App() {
               <Route index element={<DashboardComponent />} />
               <Route path='sendmoney' element={<SendMoney />} />
               <Route path='recipients' element={<Recipients />} />
+              <Route path='addrecipient' element={<AddRecipient />}/>
             </Route>
             <Route path='/howitworks' element={<HowItWorks />} />
             <Route path='/signup' element={<SignUp />}/>

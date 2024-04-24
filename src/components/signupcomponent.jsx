@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
 import signImg from "../assets/login.png";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MainInfoContext } from "../context/mainFetchInfo";
+import { dataContext } from "../context/dataContext";
 
 
 const inputClass =
@@ -49,6 +49,10 @@ const OptionPart = ({ commonName}) => {
 
 const SignUpComponent = () => {
   const {countries} = useContext(MainInfoContext);
+  const {registerFunc} = useContext(dataContext);
+  const navigate = useNavigate();
+  
+
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -58,10 +62,6 @@ const SignUpComponent = () => {
     country: "",
   });
 
-  console.log(countries)
-
-
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -69,6 +69,30 @@ const SignUpComponent = () => {
       [name]: value,
     }));
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const status = registerFunc({...formData});
+
+    if (status) {
+      toast.success("Account created successfully!");
+      navigate("/signin")
+    } else {
+      toast.error("Failed to create account. Please try again.");
+    }
+
+    setFormData({
+      firstname: "",
+      lastname: "",
+      username: "",
+      email: "",
+      password: "",
+      country: "",
+    })
+
+  }
+
 
 
   const inputs = [
@@ -134,7 +158,7 @@ const SignUpComponent = () => {
           src={signImg}
           alt="Signup Image"
         />
-        <form
+        <form onSubmit={(e) => handleSubmit(e)}
           className="shadow-2xl rounded p-7 lg:w-1/2 md:w-2/3 w-full flex flex-col gap-5"
         >
           {inputs.map((obj) => {
@@ -184,7 +208,7 @@ const SignUpComponent = () => {
           </div>
 
           <button
-            type="button"
+            type="submit"
             className="col-span-6 bg-purple-500 text-white p-3 py-4 rounded font-semibold md:text-xl border-2 border-purple-500 hover:bg-transparent hover:text-purple-500 duration-300"
           >
             Signup
@@ -195,7 +219,7 @@ const SignUpComponent = () => {
               className="font-bold text-gray-700 hover:underline"
               to="/signin"
             >
-              Login
+              Sign In
             </Link>
           </p>
         </form>

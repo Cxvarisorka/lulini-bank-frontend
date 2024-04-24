@@ -95,8 +95,7 @@ const Recipient = ({fullName, username, email, phone, country, city, accountNumb
 
 const Recipients = () => {
     return (
-        <div className="w-full p-8 flex flex-col gap-8">
-            <TopDashboard userName={"Luka Tskhvaradze"}/>
+        <div className="w-full flex flex-col gap-8">
             <div className="flex flex-col xl:gap-8 gap-4">
                 <div className="flex flex-col gap-3">
                     {

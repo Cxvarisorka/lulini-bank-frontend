@@ -4,6 +4,9 @@ import TransactionsComponent from "./dashboardParts/transactions.jsx";
 import RequestLoan from "./dashboardParts/requestLoan.jsx";
 
 import ChartDonut from "./dashboardParts/chartDonut.jsx";
+import { useContext, useEffect } from "react";
+import { dataContext } from "../../context/dataContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 
 const cardInfo = [
@@ -99,10 +102,16 @@ const latesTransactions = [
 
 
 const DashboardComponent = () => {
-    return (
-        <div className="p-8 w-full">
+  const {account} = useContext(dataContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!account) navigate("/signin")
+  }, [])
+
+  return (
+        <div className="w-full">
             <div className="flex flex-col gap-8">
-                <TopDashboard userName={"Luka Tskhvaradze"} />
                 <CardsComponent cardInfo={cardInfo} />
                 <ChartDonut transactions={transactions} cardInfo={cardInfo}/>
                 <RequestLoan />
