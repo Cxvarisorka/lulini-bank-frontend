@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import TopDashboard from "./dashboardParts/topDashboard";
 import { MainInfoContext } from "../../context/mainFetchInfo";
 
 const inputs = [
@@ -58,6 +57,7 @@ const AddRecipient = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, e.target)
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,

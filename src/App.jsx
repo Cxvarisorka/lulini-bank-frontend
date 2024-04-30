@@ -16,6 +16,7 @@ import NotFound from './components/notfound.jsx';
 import Recipients from './components/DashboardComponent/recipients.jsx';
 import AddRecipient from './components/DashboardComponent/addrecipient.jsx';
 import { ToastContainer } from 'react-toastify';
+import ChangePassword from './components/DashboardComponent/changePassword.jsx';
 
 
 
@@ -24,7 +25,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <ToastContainer />
+      
       <div>
           <Routes>
             <Route path='/' element={<Home />} />
@@ -35,6 +36,7 @@ function App() {
               <Route path='sendmoney' element={<SendMoney />} />
               <Route path='recipients' element={<Recipients />} />
               <Route path='addrecipient' element={<AddRecipient />}/>
+              <Route path='changepassword' element={<ChangePassword />}/>
             </Route>
             <Route path='/howitworks' element={<HowItWorks />} />
             <Route path='/signup' element={<SignUp />}/>

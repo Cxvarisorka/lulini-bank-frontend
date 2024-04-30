@@ -4,18 +4,23 @@ import signImg from "../assets/login.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { dataContext } from "../context/dataContext";
 
 const SignInComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {loginFunc} = useContext(dataContext);
+  const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     const result = loginFunc({email, password});
+
+    if(result){
+      navigate('/dashboard')
+    }
 
     console.log(result)
 

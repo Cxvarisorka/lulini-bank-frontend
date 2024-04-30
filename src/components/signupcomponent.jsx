@@ -73,13 +73,10 @@ const SignUpComponent = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const status = registerFunc({...formData});
+    const status = registerFunc({...formData, recipients: []});
 
     if (status) {
-      toast.success("Account created successfully!");
       navigate("/signin")
-    } else {
-      toast.error("Failed to create account. Please try again.");
     }
 
     setFormData({
