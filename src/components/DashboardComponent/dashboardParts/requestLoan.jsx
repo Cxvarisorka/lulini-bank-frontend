@@ -1,14 +1,15 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { dataContext } from "../../../context/dataContext";
 
-const RequestLoan = () => {
+const RequestLoan = ({account}) => {
+    const {requestLoan} = useContext(dataContext);
     const amount = useRef(null);
     const password = useRef(null);
   
     const handleSubmit = (e) => {
       e.preventDefault();
   
-      console.log(amount.current.value);
-      console.log(password.current.value);
+      requestLoan(parseInt(amount.current.value), password.current.value, new Date())
     }
   
     return (

@@ -1,3 +1,6 @@
+import { useContext } from "react"
+import { dataContext } from "../../../context/dataContext"
+
 const Card = ({title, amount, button, icon}) => {
     return (
         <div className="w-full flex rounded-md bg-purple-500 justify-between p-5">
@@ -14,6 +17,22 @@ const Card = ({title, amount, button, icon}) => {
 }
 
 const CardsComponent = ({cardInfo}) => {
+    const {account} = useContext(dataContext);
+    
+    const inMoney = account?.transactions.reduce((acc, cur) => {
+        if(cur.type === "in") return acc + cur.amount;
+        return acc
+    }, 0);
+    const outMoney = account?.transactions.reduce((acc, cur) => {
+        if(cur.type === "out") return acc + cur.amount;
+        return acc
+    }, 0);
+    const totalAmount = inMoney - outMoney;
+
+    cardInfo[0].amount = totalAmount;
+    cardInfo[1].amount = inMoney;
+    cardInfo[2].amount = outMoney;
+
     return (
         <div className="grid 2xl:grid-cols-4 lg:grid-cols-2 lg:gap-8 gap-4">
             {

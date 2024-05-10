@@ -28,6 +28,7 @@ const ChangePassword = () => {
         logout: false, // Added logout field to formData
     });
 
+
     const inputs = [
         {
             labelText: "Current Password*",
@@ -62,12 +63,9 @@ const ChangePassword = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        changePassword(formData.newPassword, formData.logout);
+        changePassword(formData.currentPassword, formData.newPassword, formData.logout);
     }
 
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
 
     return (
         <form onSubmit={(e) => handleSubmit(e)} className="w-4/6 bg-purple-50 p-8 flex flex-col gap-8 rounded-lg">
