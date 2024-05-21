@@ -60,6 +60,8 @@ const SignUpComponent = () => {
     email: "",
     password: "",
     country: "",
+    city: "Tbilisi",
+    tel: ""
   });
 
   const handleInputChange = (e) => {
@@ -85,7 +87,9 @@ const SignUpComponent = () => {
       username: "",
       email: "",
       password: "",
-      country: "",
+      country: "Georgia",
+      city: "Tbilisi",
+      tel: ""
     })
 
   }
@@ -99,7 +103,7 @@ const SignUpComponent = () => {
         htmlFor: "firstname",
       },
       id: "firstname",
-      placeholder: "Enter the firstname",
+      placeholder: "Luka",
       type: "text",
       name: "firstname",
     },
@@ -109,7 +113,7 @@ const SignUpComponent = () => {
         htmlFor: "lastname",
       },
       id: "lastname",
-      placeholder: "Enter the lastname",
+      placeholder: "Tskhvaradze",
       type: "text",
       name: "lastname",
     },
@@ -119,7 +123,7 @@ const SignUpComponent = () => {
         htmlFor: "username",
       },
       id: "username",
-      placeholder: "Enter username",
+      placeholder: "Luksona",
       type: "text",
       name: "username",
     },
@@ -129,9 +133,19 @@ const SignUpComponent = () => {
         htmlFor: "email",
       },
       id: "email",
-      placeholder: "Enter email",
+      placeholder: "example@gmail.com",
       type: "email",
       name: "email",
+    },
+    {
+      label: {
+        labelText: "Enter Phone Number",
+        htmlFor: "tel",
+      },
+      id: "tel",
+      placeholder: "+995 555 555 555",
+      type: "tel",
+      name: "tel",
     },
     {
       label: {
@@ -139,11 +153,19 @@ const SignUpComponent = () => {
         htmlFor: "password",
       },
       id: "password",
-      placeholder: "Enter password",
+      placeholder: "*******",
       type: "password",
       name: "password",
-      minLength: 8,
-      maxLength: 16,
+    },
+    {
+      label: {
+        labelText: "City",
+        htmlFor: "city",
+      },
+      id: "city",
+      placeholder: "Tbilisi",
+      type: "text",
+      name: "city",
     },
   ];
 

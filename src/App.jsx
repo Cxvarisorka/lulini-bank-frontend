@@ -17,7 +17,7 @@ import Recipients from './components/DashboardComponent/recipients.jsx';
 import AddRecipient from './components/DashboardComponent/addrecipient.jsx';
 import { ToastContainer } from 'react-toastify';
 import ChangePassword from './components/DashboardComponent/changePassword.jsx';
-
+import Transactions from './components/DashboardComponent/transactions.jsx';
 
 
 
@@ -35,7 +35,7 @@ function App() {
               <Route index element={<DashboardComponent />} />
               <Route path='sendmoney' element={<SendMoney />} />
               <Route path='recipients' element={<Recipients />} />
-              <Route path='addrecipient' element={<AddRecipient />}/>
+              <Route path='transactions' element={<Transactions />}/>
               <Route path='changepassword' element={<ChangePassword />}/>
             </Route>
             <Route path='/howitworks' element={<HowItWorks />} />

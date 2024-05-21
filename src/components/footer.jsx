@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/Red Modern Initials Letter B Banking Logo (1) (1).png';
+import AnimatedComponent from './animatedcomponent';
 
 const Footer = () => {
     const navLinks = [
@@ -27,7 +28,7 @@ const Footer = () => {
 
     return (
         <footer className='bg-purple-50 relative z-40'>
-            <div className='2xl:container mx-auto md:py-24 py-16 flex justify-between md:flex-row flex-col items-baseline md:gap-8 gap-20 px-3'>
+            <AnimatedComponent className='2xl:container mx-auto md:py-24 py-16 flex justify-between md:flex-row flex-col items-baseline md:gap-8 gap-20 px-3'>
                 
                 <div className='md:w-1/2 w-full flex flex-col justify-center md:text-start text-center md:items-start items-center gap-8'>
                     <p className='text-purple-500 font-bold xl:text-2xl md:text-xl text-lg'>About Us</p>
@@ -61,7 +62,7 @@ const Footer = () => {
                         
                     </div>
                 </div>
-            </div>
+            </AnimatedComponent>
         </footer>
     );
 }

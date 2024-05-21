@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import logo from '../assets/Red Modern Initials Letter B Banking Logo (1) (1).png';
 
-import meImg from '../assets/personimgs/lukatskhvaradze.png';
 
 import { Link } from 'react-router-dom';
 
@@ -9,7 +7,7 @@ const activeClass = "border-r-4 border-purple-600 bg-purple-100";
 
 const BarItem = ({name,icon,link,active, eventHandler, index, isOpen}) => {
     return (
-        <Link to={link} onClick={() => eventHandler(index)} className={`sm:w-full flex items-start p-5 hover:bg-purple-50 duration-300 ${index === active ? activeClass : ''}`}>
+        <Link to={link} onClick={() => eventHandler(index)} className={`w-full p-5 hover:bg-purple-50 duration-300 md:block ${index === active ? activeClass : ''}`}>
             <div  className={`flex gap-3 items-center ${isOpen ? "md:justify-stretch" : "justify-center"}  justify-center`}>
                 <span className='text-purple-600'>{icon}</span>
                 <p className={`${isOpen ? "md:block sm:hidden" : "sm:hidden"} sm:font-semibold font-medium text-gray-700 lg:text-xl `}>{name}</p>
@@ -44,14 +42,7 @@ const SideBar = () => {
             link: 'recipients',
             active: false
         },
-        {
-            name: "Add Recipient",
-            icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className='sm:w-10 sm:h-10 w-6 h-6'>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-            </svg>,
-            link: "addrecipient",
-            active: false
-        },
+        
         {
             name: "Transactions",
             icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className='sm:w-10 sm:h-10 w-6 h-6'>

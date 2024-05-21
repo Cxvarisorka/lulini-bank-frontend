@@ -1,13 +1,24 @@
 import { useContext, useState } from "react";
 import { MainInfoContext } from "../../context/mainFetchInfo";
 import TopDashboard from "./dashboardParts/topDashboard";
+import { dataContext } from "../../context/dataContext";
 
-const SendForm = ({formData, handleInputChange, countries, rates}) => {
+const SendForm = ({formData, handleInputChange, countries, rates, recipientInfo, sendMoney}) => {
 
     const inputClass = "p-3 w-full rounded-lg";
 
+    const handleFormSubmit = (e) => {
+        console.log(formData)
+        e.preventDefault();
+        if(formData.amount != 0 && formData.recipientInformation) {
+            sendMoney({...formData})
+            return;
+        };
+        console.log("weqfdwefewf")
+    }
+
     return (
-        <form className="flex xl:col-span-4 lg:col-span-3 flex-col gap-8 bg-purple-50 p-8 rounded-lg">
+        <form onSubmit={(e) => handleFormSubmit(e)} className="flex xl:col-span-4 lg:col-span-3 flex-col gap-8 bg-purple-50 p-8 rounded-lg">
                 <p className="lg:text-xl text-lg">Send Money</p>
                 <div className="flex w-full flex-col gap-2">
                         <label className=" lg:text-base text-sm" htmlFor="send">Sending Country</label>
@@ -65,13 +76,16 @@ const SendForm = ({formData, handleInputChange, countries, rates}) => {
                     <label className=" lg:text-base text-sm" htmlFor="recipientInformation">Recipient Information</label>
                     <select className={inputClass} id="recipientInformation" name="recipientInformation" value={formData.recipientInformation} onChange={(e) => handleInputChange(e)}>
                         {
+                            recipientInfo ?
                             recipientInfo.map((obj, i) => {
                                 return (
-                                    <option key={i} value={obj.email}>
-                                        {obj.fullName} - {obj.email}
+                                    <option key={i} value={obj?.email}>
+                                        {obj?.fullName} - {obj?.email}
                                     </option>
                                 )
                             })
+                            :
+                            <option key={0} value={null} disabled>Please add recipient</option>
                         }
                     </select>
                 </div>
@@ -111,46 +125,48 @@ const SendPreview = ({senderAmount, fromCountry, toCountry}) => {
     )
 }
 
-const recipientInfo = [
-    {
-        fullName: "Lile Tskhvaradze",
-        email: "liletskhvaradze@gmail.com"
-    },
-    {
-        fullName: "Nia Tskhvaradze",
-        email: "niatskhvaradze@gmail.com"
-    },
-    {
-        fullName: "Mariam Kavtaradze",
-        email: "mariamikavtaradze@gmail.com"
-    }
-]
+// const recipientInfo = [
+//     {
+//         fullName: "Lile Tskhvaradze",
+//         email: "liletskhvaradze@gmail.com"
+//     },
+//     {
+//         fullName: "Nia Tskhvaradze",
+//         email: "niatskhvaradze@gmail.com"
+//     },
+//     {
+//         fullName: "Mariam Kavtaradze",
+//         email: "mariamikavtaradze@gmail.com"
+//     }
+// ]
 
 const SendMoney = () => {
-    const {countries, rates, userCountry} = useContext(MainInfoContext);
+    const {countries, rates} = useContext(MainInfoContext);
+    const {account, sendMoney} = useContext(dataContext);
+
+    const recipientInfo = account?.recipients ? account?.recipients : [] ;
 
     const [formData, setFormData] = useState({
-        sendingCountry: userCountry,
-        receivingCountry: "Cyprus",
+        sendingCountry: account?.country,
+        receivingCountry: recipientInfo[0]?.country,
         senderAmount: "0",
         senderCurrency: "USD",
         recipientCurrency: "USD",
-        recipientInformation: recipientInfo[0].fullName + " - " + recipientInfo[0].email
+        recipientInformation: recipientInfo[0]
     });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevState) => ({
-          ...prevState,
-          [name]: value,
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value,
         }));
-        console.log(formData)
     };
 
     return (
         <div className="w-full flex flex-col gap-8">
             <div className="grid lg:grid-cols-6 xl:gap-8 gap-4">
-                <SendForm formData={formData} handleInputChange={handleInputChange} countries={countries} rates={rates}/>
+                <SendForm sendMoney={sendMoney}  formData={formData} handleInputChange={handleInputChange} countries={countries} rates={rates} recipientInfo={recipientInfo}/>
                 <SendPreview senderAmount={formData.senderAmount} fromCountry={formData.senderCurrency} toCountry={formData.recipientCurrency}/>
             </div>
         </div>

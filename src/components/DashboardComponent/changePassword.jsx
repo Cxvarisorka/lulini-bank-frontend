@@ -68,7 +68,7 @@ const ChangePassword = () => {
 
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)} className="w-4/6 bg-purple-50 p-8 flex flex-col gap-8 rounded-lg">
+        <form onSubmit={(e) => handleSubmit(e)} className="md:w-4/6 bg-purple-50 p-8 flex flex-col gap-8 rounded-lg">
             <p className="lg:text-xl text-lg">Change Password</p>
             <div className="flex flex-col gap-5">
                 {inputs.map((obj) => (

@@ -1,4 +1,5 @@
 import backPng from '../assets/5652242.jpg';
+import AnimatedComponent from './animatedcomponent';
 
 const Feature = ({name,icon}) => {
     return (
@@ -53,7 +54,7 @@ const OurFeatures = () => {
         }
     ]
     return (
-        <div className="flex flex-col justify-center items-center xl:gap-24 gap-10 md:py-24 py-16">
+        <AnimatedComponent className="flex flex-col justify-center items-center xl:gap-24 gap-10 md:py-24 py-16">
             <div className='2xl:container mx-auto flex flex-col justify-center items-center xl:gap-24 gap-10'>
                 <div className="flex flex-col items-center text-center gap-5">
                     <p className="uppercase text-purple-500 font-bold xl:text-2xl md:text-xl text-lg">Our Features</p>
@@ -71,7 +72,7 @@ const OurFeatures = () => {
                 </div>
             </div>
             
-        </div>
+        </AnimatedComponent>
     );
 }
 

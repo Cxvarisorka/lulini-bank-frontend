@@ -4,6 +4,7 @@ import { BarChart, DonutChart, Legend } from '@tremor/react';
 
 
 const Donut = ({cardInfo}) => {
+  console.log(cardInfo)
     return (
       <>
         <div className="flex flex-col justify-center items-center gap-5 h-full">
@@ -28,14 +29,14 @@ const Donut = ({cardInfo}) => {
 
 
 const BarChartHero = ({transactions, categories, color}) => {
-  console.log(color)
+
   return (
     <>
       <BarChart
           data={transactions}
           index="date"
           categories={categories}
-          colors={[color]}
+          colors={color}
           valueFormatter={dataFormatter}
           yAxisWidth={48}
           onValueChange={(v) => console.log(v)}
@@ -45,19 +46,38 @@ const BarChartHero = ({transactions, categories, color}) => {
 };
 
 const ChartDonut = ({transactions, cardInfo}) => {
-    const inTransactions = transactions?.filter(obj => {
-      if (obj.type == 'in') return { 'in': obj.amount, date: obj.date };
-    });
-    const outTransactions = transactions?.filter(obj => {
-      if (obj.type == 'out') return { 'out': obj.amount, date: obj.date };
-    });
 
-    console.log(outTransactions)
+  console.log(transactions)
+    // const inTransactions = transactions?.map(obj => {
+    //   if (obj.type == 'in') return { 'in': obj.amount, date: obj.date };
+    // }).filter(item => item != undefined).slice(-5);
+
+    // const outTransactions = transactions?.map(obj => {
+    //   if (obj.type == 'out') return { 'out': obj.amount, date: obj.date };
+    // }).filter(item => item != undefined).slice(-5);
+
+    // const filteredTransactions = transactions?.reduce((acc, obj) => {
+    //   if (obj.type === 'in' || obj.type === 'out') {
+    //     acc.push({ [obj.type]: obj.amount, date: obj.date });
+    //   }
+    //   return acc;
+    // }, []).slice(-5);
+
+    const myTransactions = transactions?.map(obj => {
+      return { "Transaction": obj.type == 'in' ? obj.amount : -obj.amount }
+    }).slice(-5)
+
+    console.log(myTransactions)
+  
     return (
         <div className="grid xl:grid-cols-4 w-full lg:gap-8 gap-4">
             <div className="bg-purple-100 p-5 rounded-lg w-full xl:col-span-3 flex flex-col gap-4">
-                <BarChartHero transactions={inTransactions} categories={['in']} color={'green'}/>
-                <BarChartHero transactions={outTransactions} categories={['out']} color={'red'}/>
+                {/* <BarChartHero transactions={filteredTransactions} categories={['in', 'out']} color={['green', 'red']}/>  */}
+
+                <BarChartHero transactions={myTransactions} categories={['Transaction']} color={['purple']}/> 
+
+                {/* <BarChartHero transactions={outTransactions} categories={['out']} color={['red']}/>  */}
+                
             </div>
             <div className="bg-purple-100 p-5 rounded-lg">
                 <Donut cardInfo={cardInfo}/>

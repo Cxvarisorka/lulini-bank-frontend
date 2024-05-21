@@ -1,4 +1,5 @@
 import luliniPhone from '../assets/lulinibank (1).png';
+import AnimatedComponent from './animatedcomponent';
 
 const Part = ({icon,title, text}) => {
     return (
@@ -37,7 +38,7 @@ const HowItWork = () => {
     ]
     
     return (
-        <div className='w-full flex justify-between px-3 bg-gradient-to-r from-purple-200 to-purple-50'>
+        <AnimatedComponent className='w-full flex justify-between px-3 bg-gradient-to-r from-purple-200 to-purple-50'>
             <div className='2xl:container mx-auto flex gap-8 xl:items-start items-center xl:flex-row flex-col'>
                 <img className='md:w-5/12 sm:w-1/2' src={luliniPhone}/>
                 <div className='py-12 w-full h-full flex flex-col 2xl:gap-24 xl:gap-16 gap-10
@@ -59,7 +60,7 @@ const HowItWork = () => {
                 </div>
             </div>
             
-        </div>
+        </AnimatedComponent>
     )
 }
 

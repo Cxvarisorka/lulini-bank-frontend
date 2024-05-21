@@ -1,8 +1,9 @@
 import b4 from "../assets/b4.png"
+import AnimatedComponent from "./animatedcomponent";
 
 const AppDownload = () => {
     return (
-        <div className="w-full flex justify-between px-3 bg-gradient-to-r from-purple-200 to-purple-50">
+        <AnimatedComponent className="w-full flex justify-between px-3 bg-gradient-to-r from-purple-200 to-purple-50">
            <div className="2xl:container mx-auto flex gap-8 xl:items-start justify-center items-center xl:flex-row flex-col md:py-24 py-16">
                 <div className="flex flex-col xl:gap-16 gap-10">
                     <div className="flex flex-col gap-5">
@@ -28,7 +29,7 @@ const AppDownload = () => {
                 </div>
                 <img className="xl:w-1/2 md:w-7/12 flex" src={b4}/>
             </div> 
-        </div>
+        </AnimatedComponent>
         
     )
 }

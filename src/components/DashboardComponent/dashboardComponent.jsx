@@ -7,6 +7,7 @@ import ChartDonut from "./dashboardParts/chartDonut.jsx";
 import { useContext, useEffect } from "react";
 import { dataContext } from "../../context/dataContext.jsx";
 import { useNavigate } from "react-router-dom";
+import AddRecipient from "./addrecipient.jsx";
 
 
 const cardInfo = [
@@ -44,61 +45,7 @@ const cardInfo = [
     }
 ]
 
-const transactions = [
-  { date: '2024-01-01', 'in': 500 },
-  { date: '2024-01-03', 'out': 200 },
-  { date: '2024-01-01', 'int': 1200 },
-  { date: '2024-01-01', 'Transactions': 700 },
-  { date: '2024-01-01', 'out': 100 },
-];
 
-const latesTransactions = [
-  {
-    name: "Mariam Kavtaradze",
-    type: "Send",
-    money: 1000,
-    date: new Date().toDateString(),
-    process: "Completed",
-    from: "GEL",
-    to: "USD"
-  },
-  {
-    name: "Lile Tskhvaradze",
-    type: "Get",
-    money: 800,
-    date: new Date().toDateString(),
-    process: "Completed",
-    from: "USD",
-    to: "GEL",
-  },
-  {
-    name: "Nia Tskhvaradze",
-    type: "Send",
-    money: 400,
-    date: new Date().toDateString(),
-    process: "Completed",
-    from: "GEL",
-    to: "GEL"
-  },
-  {
-    name: "Lika Julakidze",
-    type: "Send",
-    money: 1000,
-    date: new Date().toDateString(),
-    process: "Cancelled",
-    from: "GEL",
-    to: "GEL"
-  },
-  {
-    name: "Valeri Tskhvaradze",
-    type: "Get",
-    money: 300,
-    date: new Date().toDateString(),
-    process: "Completed",
-    from: "EUR",
-    to: "GEL"
-  },
-]
 
 
 const DashboardComponent = () => {
@@ -117,7 +64,8 @@ const DashboardComponent = () => {
                 <CardsComponent cardInfo={cardInfo} />
                 <ChartDonut transactions={account?.transactions} cardInfo={cardInfo}/>
                 <RequestLoan account={account} />
-                <TransactionsComponent latesTransactions={latesTransactions}/>
+                <AddRecipient></AddRecipient>
+                <TransactionsComponent latesTransactions={account?.transactions}/>
             </div>
         </div>
     )

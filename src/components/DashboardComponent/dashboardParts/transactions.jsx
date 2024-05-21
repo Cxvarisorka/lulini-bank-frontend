@@ -3,8 +3,8 @@ import { MainInfoContext } from "../../../context/mainFetchInfo";
 
 
 
-const TransactionComponent = ({ name, type, money, date, process, from, to , convertCurrency}) => {
-    const convertedValue = convertCurrency(from, to, money);
+const TransactionComponent = ({ name, type, amount, date, process, from, to , convertCurrency}) => {
+    const convertedValue = convertCurrency(from, to, amount);
   
     return (
         <div className="text-white flex sm:flex-row flex-col justify-between p-5 rounded-lg sm:items-center bg-purple-500 sm:gap-0 gap-2">
@@ -14,8 +14,8 @@ const TransactionComponent = ({ name, type, money, date, process, from, to , con
                 <p className="lg:text-xl text-lg font-medium">{process}</p>
             </div>
             <div className="flex flex-col gap-2 items-end">
-                <p className="lg:text-2xl text-lg">{type === "Get" ? "Received: " : "Sent: "} {money} {from}</p>
-                <p className="lg:text-lg">{type === "Get" ? "Recipient Sent: " : "Recipient Received: "} {convertedValue[0]} {to}</p>
+                <p className="lg:text-2xl text-lg">{type === "in" ? "Received: " : "Sent: "} {amount} {from}</p>
+                <p className="lg:text-lg">{type === "in" ? "Recipient Sent: " : "Recipient Received: "} {convertedValue[0]} {to}</p>
             </div>
         </div>
     )
@@ -24,6 +24,7 @@ const TransactionComponent = ({ name, type, money, date, process, from, to , con
   
 const TransactionsComponent = ({latesTransactions}) => {
     const {rates, convertCurrency} = useContext(MainInfoContext);
+
   
     const [convertedValue, setConvertedValue] = useState();
       
@@ -43,7 +44,7 @@ const TransactionsComponent = ({latesTransactions}) => {
             <div className="flex flex-col gap-4">
             {
                 !rates ? "Loading..." :
-                latesTransactions.map((obj, i) => {
+                latesTransactions?.slice(-5)?.map((obj, i) => {
                 return (
                     <TransactionComponent {...obj} key={i} convertCurrency={convertCurrency} convertedValue={convertedValue}/>
                 )

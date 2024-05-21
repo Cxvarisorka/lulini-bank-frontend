@@ -1,12 +1,8 @@
 import React, { useContext, useState } from "react";
 import { MainInfoContext } from "../../context/mainFetchInfo";
+import { dataContext } from "../../context/dataContext";
 
 const inputs = [
-  {
-    labelText: "Fullname",
-    placeholder: "Luka Tskhvaradze",
-    type: "text",
-  },
   {
     labelText: "Username",
     placeholder: "Lukacxvari11",
@@ -16,43 +12,18 @@ const inputs = [
     labelText: "Email",
     placeholder: "lcxvaradzee400@gmail.com",
     type: "email",
-  },
-  {
-    labelText: "Phone",
-    placeholder: "(+995) 555 444 222",
-    type: "tel",
-  },
-  {
-    labelText: "City",
-    placeholder: "Tbilisi",
-    type: "text",
-  },
-  {
-    labelText: "Address",
-    placeholder: "GEO, Tbilisi, Agmasheneblis 82",
-    type: "text",
-  },
-  {
-    labelText: "Image",
-    type: "file",
-  },
+  }
 ];
 
 const inputClass =
-  "p-4 border focus:outline-none rounded-lg border-black w-full";
+  "p-3 border focus:outline-none rounded-lg border-black w-full";
 
 const AddRecipient = () => {
-  const { countries } = useContext(MainInfoContext);
+  const { addRecipient } = useContext(dataContext);
 
   const [formData, setFormData] = useState({
-    fullname: "",
     username: "",
-    email: "",
-    phone: "",
-    city: "",
-    address: "",
-    image: "",
-    country: "",
+    email: ""
   });
 
   const handleInputChange = (e) => {
@@ -64,14 +35,17 @@ const AddRecipient = () => {
     }));
   };
 
-  console.log(formData);
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    addRecipient({...formData});
+  }
 
   return (
     <div className="w-full flex flex-col">
-      <div className="flex flex-col gap-8 bg-purple-50">
-        <form className="w-full flex flex-col p-8 gap-8">
-            <p className="lg:text-xl text-lg">Add Recipient</p>
-            <div className="grid lg:grid-cols-2 gap-8">
+      <div className="flex flex-col gap-8 bg-purple-100 rounded-lg">
+        <form onSubmit={(e) => handleFormSubmit(e)} className="w-full flex flex-col p-5 gap-8">
+            <p className="lg:text-2xl text-xl">Add Recipient</p>
+            <div className="flex flex-col gap-5">
                 {inputs.map((input, index) => (
                     <div key={index} className="flex flex-col gap-4">
                         <label className="lg:text-lg">{input.labelText} <span className="text-red-600">*</span></label>
@@ -86,28 +60,10 @@ const AddRecipient = () => {
                         />
                     </div>
                 ))}
-                <div className="flex flex-col gap-4">
-                    <label className="lg:text-lg">Country <span className="text-red-600">*</span></label>
-                    {countries.length > 0 ? (
-                        <select
-                        id="countries"
-                        className={inputClass}
-                        name="country"
-                        value={formData.country}
-                        onChange={handleInputChange}
-                        required
-                        >
-                        {countries.map((obj) => (
-                            <option key={obj.name.common}>{obj.name.common}</option>
-                        ))}
-                        </select>
-                    ) : (
-                        "Loading..."
-                )}
-            </div>
+                
           
             </div>
-            <button className="md:text-lg text-white font-medium bg-purple-500 p-4 rounded-lg w-full">Add Recipient</button>
+            <button className="bg-purple-500 text-white p-3 rounded-lg text-lg">Add Recipient</button>
         </form>
       </div>
     </div>
