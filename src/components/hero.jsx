@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import Converter from "./converter.jsx";
 import shape from '../assets/shape.png';
-import AnimatedComponent from "./animatedcomponent.jsx";
 
 const Hero = () => {
     return (
-        <AnimatedComponent className="w-full bg-gradient-to-l from-purple-200 to-purple-50 md:py-36 py-10 ">
+        <div className="w-full bg-gradient-to-l from-purple-200 to-purple-50 md:py-36 py-10 ">
             <div className="2xl:container flex justify-between items-center sm:flex-row flex-col mx-auto px-3 h-full gap-10">
                 <div className="sm:w-2/3 w-full overflow-hidden py-5 flex justify-center flex-col gap-10 relative">
                     <img src={shape} className="absolute animate-[spin_70s_linear_infinite] z-0"/>
@@ -24,7 +23,7 @@ const Hero = () => {
                 </div>
                 <Converter/>
             </div> 
-        </AnimatedComponent>
+        </div>
         
     )
 }
