@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Create a context for managing user data
 const dataContext = createContext();
@@ -42,60 +44,15 @@ const DataProvider = ({ children }) => {
         // const date = new Date().toISOString().split('T')[0];
 
         if (accountExists === -1) {
-            registerInfo.transactions = [
-                // {
-                //     name: "Mariam Kavtaradze",
-                //     type: "out",
-                //     amount: 1000,
-                //     date: new Date().toDateString(),
-                //     process: "Completed",
-                //     from: "GEL",
-                //     to: "USD"
-                //   },
-                //   {
-                //     name: "Lile Tskhvaradze",
-                //     type: "in",
-                //     amount: 800,
-                //     date: new Date().toDateString(),
-                //     process: "Completed",
-                //     from: "USD",
-                //     to: "GEL",
-                //   },
-                //   {
-                //     name: "Nia Tskhvaradze",
-                //     type: "out",
-                //     amount: 400,
-                //     date: new Date().toDateString(),
-                //     process: "Completed",
-                //     from: "GEL",
-                //     to: "GEL"
-                //   },
-                //   {
-                //     name: "Lika Julakidze",
-                //     type: "out",
-                //     amount: 1000,
-                //     date: new Date().toDateString(),
-                //     process: "Cancelled",
-                //     from: "GEL",
-                //     to: "GEL"
-                //   },
-                //   {
-                //     name: "Valeri Tskhvaradze",
-                //     type: "in",
-                //     amount: 300,
-                //     date: new Date().toDateString(),
-                //     process: "Completed",
-                //     from: "EUR",
-                //     to: "GEL"
-                //   },
-            ]
+            registerInfo.transactions = []
             registerInfo.bankNumber = generateBankNumber();
             localStorage.setItem('accounts', JSON.stringify([...users, registerInfo]));
             setUsers(prevUsers => [...prevUsers, registerInfo]);
+            toast.success("Registration successful!");
             return true;
         }
 
-        // Return false if account already exists
+        toast.error("Account already exists!");
         return false;
     }
 
@@ -105,12 +62,16 @@ const DataProvider = ({ children }) => {
         const accountDoc = users.find(acc => acc.email === loginInfo.email);
 
         // If account not found, return false
-        if (!accountDoc) return false;
+        if (!accountDoc) {
+            toast.error("Account not found!");
+            return false;
+        }
 
         // If password matches, set the account in state and return it
         if (accountDoc.password === loginInfo.password) {
             localStorage.setItem('account', JSON.stringify(accountDoc));
             setAccount(accountDoc);
+            toast.success("Login successful!");
             return accountDoc;
         }
     }
@@ -163,7 +124,7 @@ const DataProvider = ({ children }) => {
             name: "Loan",
             type: "in",
             amount: amount,
-            date: new Date().toDateString(),
+            date: new Date().toISOString(),
             process: "Completed",
             from: "USD",
             to: "USD",
@@ -266,6 +227,7 @@ const DataProvider = ({ children }) => {
     return (
         <dataContext.Provider value={{ registerFunc, loginFunc, account, logoutFunc, changePassword, requestLoan, addRecipient, sendMoney }}>
             {children}
+            <ToastContainer />
         </dataContext.Provider>
     )
 }
