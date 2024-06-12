@@ -36,7 +36,7 @@ const DataProvider = ({ children }) => {
     const registerFunc = (registerInfo) => {
         // Check if an account with the same username or email already exists
         const accountExists = users.findIndex(
-            acc => acc.username === registerInfo.username || acc.email === registerInfo.email || acc.tel === registerInfo.tel
+            acc => acc.username === registerInfo.username || acc.email === registerInfo.email
         );
 
         // If account does not exist, add it to the users array
@@ -44,11 +44,12 @@ const DataProvider = ({ children }) => {
         // const date = new Date().toISOString().split('T')[0];
 
         if (accountExists === -1) {
+            toast.success("Registration successful!");
             registerInfo.transactions = []
             registerInfo.bankNumber = generateBankNumber();
             localStorage.setItem('accounts', JSON.stringify([...users, registerInfo]));
             setUsers(prevUsers => [...prevUsers, registerInfo]);
-            toast.success("Registration successful!");
+            
             return true;
         }
 
@@ -89,6 +90,7 @@ const DataProvider = ({ children }) => {
     const changePassword = (currentPassword, newPassword, logout) => {
         // Check if the current password matches the account's password
         if (account.password !== currentPassword) {
+            toast.error("Password is incorrect")
             return { success: false, error: 'Current password is incorrect.' };
         }
 
@@ -107,13 +109,17 @@ const DataProvider = ({ children }) => {
         if (logout) logoutFunc();
 
         // Return success
+        toast.success("Succsesfully changed!")
         return { success: true };
     }
 
     const requestLoan = (amount, password, date) => {
         
 
-        if(password != account.password) return { success: false, error: 'Current password is incorrect.' };
+        if(password != account.password){
+            toast.error("Password is incorrect!")
+            return { success: false, error: 'Current password is incorrect.' };
+        } 
         // Find the index of the account in the users array
         const accountIndex = users.findIndex(acc => acc.email === account.email);
 
@@ -137,6 +143,8 @@ const DataProvider = ({ children }) => {
 
         setAccount({...users[accountIndex]});
 
+        toast.success("Loan is succsesfull!")
+
         return { success: true };
     }
 
@@ -150,10 +158,12 @@ const DataProvider = ({ children }) => {
             setAccount({...account});
 
             updateLocalStorage(account, users)
-
+            
+            toast.success("Recipient succsesfully added!")
             return { success: true };
         }
         
+        toast.error("Recipient already added or recipient is not exsist in Lulini Bank")
         return { success: false, message: "Recipient already added or recipient is not exsist in Lulini Bank" };
     }
 
@@ -170,15 +180,16 @@ const DataProvider = ({ children }) => {
         const recipientAccount = users[accountExists];
 
         if (account.amount < senderAmount) {
-            return { success: false, message: "Not enough money to complete transactions" };
+            toast.error("Not enough money to complete transactions")
+            return { success: false, message:"Not enough money to complete transactions"  };
         }
 
         // Create a new transaction for the recipient
         const recipientTransaction = {
-            name: `${account.firstname} ${account.lastname}`,
+            fullname: account.fullname,
             type: "in",
             amount: senderAmount,
-            date: new Date().toDateString(),
+            date: new Date().toUTCString(),
             process: "Completed",
             from: formData.senderCurrency,
             to: formData.recipientCurrency
@@ -188,10 +199,10 @@ const DataProvider = ({ children }) => {
 
         // Create a new transaction for the sender
         const senderTransaction = {
-            name: `${recipientAccount.firstname} ${recipientAccount.lastname}`,
+            fullname: recipientAccount.fullname,
             type: "out",
             amount: senderAmount,
-            date: new Date().toDateString(),
+            date: new Date().toUTCString(),
             process: "Completed",
             from: formData.senderCurrency,
             to: formData.recipientCurrency
@@ -204,6 +215,8 @@ const DataProvider = ({ children }) => {
         setUsers([...users]);
 
         updateLocalStorage(account, users);
+
+        toast.success("Transaction completed successfully")
 
         return { success: true, message: "Transaction completed successfully" };
     }

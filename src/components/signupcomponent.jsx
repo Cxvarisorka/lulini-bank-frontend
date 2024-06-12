@@ -54,14 +54,11 @@ const SignUpComponent = () => {
   
 
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
+    fullname: "",
     username: "",
     email: "",
     password: "",
-    country: "",
-    city: "Tbilisi",
-    tel: ""
+    country: "Georgia"
   });
 
   const handleInputChange = (e) => {
@@ -82,14 +79,11 @@ const SignUpComponent = () => {
     }
 
     setFormData({
-      firstname: "",
-      lastname: "",
+      fullname: "",
       username: "",
       email: "",
       password: "",
-      country: "Georgia",
-      city: "Tbilisi",
-      tel: ""
+      country: "Georgia"
     })
 
   }
@@ -99,23 +93,13 @@ const SignUpComponent = () => {
   const inputs = [
     {
       label: {
-        labelText: "First Name",
-        htmlFor: "firstname",
+        labelText: "Full Name",
+        htmlFor: "fullname",
       },
-      id: "firstname",
-      placeholder: "Luka",
+      id: "fullname",
+      placeholder: "Luka Tskhvaradze",
       type: "text",
-      name: "firstname",
-    },
-    {
-      label: {
-        labelText: "Last Name",
-        htmlFor: "lastname",
-      },
-      id: "lastname",
-      placeholder: "Tskhvaradze",
-      type: "text",
-      name: "lastname",
+      name: "fullname",
     },
     {
       label: {
@@ -139,16 +123,6 @@ const SignUpComponent = () => {
     },
     {
       label: {
-        labelText: "Enter Phone Number",
-        htmlFor: "tel",
-      },
-      id: "tel",
-      placeholder: "+995 555 555 555",
-      type: "tel",
-      name: "tel",
-    },
-    {
-      label: {
         labelText: "Password",
         htmlFor: "password",
       },
@@ -156,17 +130,7 @@ const SignUpComponent = () => {
       placeholder: "*******",
       type: "password",
       name: "password",
-    },
-    {
-      label: {
-        labelText: "City",
-        htmlFor: "city",
-      },
-      id: "city",
-      placeholder: "Tbilisi",
-      type: "text",
-      name: "city",
-    },
+    }
   ];
 
   return (

@@ -21,11 +21,12 @@ import Transactions from './components/DashboardComponent/transactions.jsx';
 
 
 
+
 function App() {
   return (
     <>
       <Navbar />
-      
+      <ToastContainer />
       <div>
           <Routes>
             <Route path='/' element={<Home />} />
@@ -33,8 +34,8 @@ function App() {
             <Route path='/contactus' element={<ContactUs />} />
             <Route path='/dashboard' element={<Dashboard />}>
               <Route index element={<DashboardComponent />} />
-              <Route path='sendmoney' element={<SendMoney />} />
-              <Route path='recipients' element={<Recipients />} />
+              <Route path='sendmoney' element={<SendMoney />}/>
+              <Route path='recipients' element={<Recipients/>}/>
               <Route path='transactions' element={<Transactions />}/>
               <Route path='changepassword' element={<ChangePassword />}/>
             </Route>

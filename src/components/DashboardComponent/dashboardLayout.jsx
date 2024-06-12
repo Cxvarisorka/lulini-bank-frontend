@@ -8,7 +8,7 @@ const DashboardLayout = () => {
 
     return (
         <>
-            <TopDashboard userName={account?.firstname + " " + account?.lastname} />
+            <TopDashboard userName={account?.fullname} />
             <Outlet /> 
         </>
     )

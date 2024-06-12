@@ -33,7 +33,7 @@ import { dataContext } from "../../context/dataContext"
 // ]
 
 
-const Recipient = ({firstname, lastname, username, email, tel, country, city, bankNumber}) => {
+const Recipient = ({username, email, fullname, bankNumber, country}) => {
     
     const labels = [
         {
@@ -49,16 +49,12 @@ const Recipient = ({firstname, lastname, username, email, tel, country, city, ba
             labelValue: email 
         },
         {
-            labeltext: "tel:", 
-            labelValue: tel 
+            labeltext: "Fullname",
+            labelValue: fullname
         },
         {
-            labeltext: "Country:", 
-            labelValue: country 
-        },
-        {
-            labeltext: "City:", 
-            labelValue: city 
+            labeltext: "Country",
+            labelValue: country
         }
     ]
 
@@ -71,7 +67,7 @@ const Recipient = ({firstname, lastname, username, email, tel, country, city, ba
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                         </svg>
                     </span>
-                    <p className="lg:text-2xl text-lg font-bold">{firstname + " " + lastname}</p>
+                    <p className="lg:text-2xl text-lg font-bold">{fullname}</p>
                 </div>
                 <p className="lg:text-2xl text-lg font-bold">Lulini Bank</p>
             </div> 

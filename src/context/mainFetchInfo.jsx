@@ -28,6 +28,8 @@ const MainInfoProvider = ({children}) => {
             const data = await res.json();
     
             setCountries(data);
+
+
           } catch (err) {
             console.log(err);
           }

@@ -4,13 +4,13 @@ import moment from 'moment';
 
 
 
-const TransactionComponent = ({ name, type, amount, date, process, from, to , convertCurrency}) => {
+const TransactionComponent = ({ fullname, type, amount, date, process, from, to , convertCurrency}) => {
     const convertedValue = convertCurrency(from, to, amount);
   
     return (
         <div className="text-white flex sm:flex-row flex-col justify-between p-5 rounded-lg sm:items-center bg-purple-500 sm:gap-0 gap-2">
             <div className="flex flex-col gap-2">
-                <p className="lg:text-xl text-lg font-bold">{name}</p>
+                <p className="lg:text-xl text-lg font-bold">{fullname}</p>
                 <p>{moment(date).fromNow()}</p>
                 <p className="lg:text-xl text-lg font-medium">{process}</p>
             </div>

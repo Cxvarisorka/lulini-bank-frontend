@@ -79,7 +79,6 @@ const Navbar = () => {
                             <button onClick={logoutFunc} className='bg-purple-500 hover:bg-purple-600 transition duration-300 sm:px-6 px-3 sm:py-3 py-2 text-white rounded-full'>Logout</button> 
                         </div>
                         
-                        
                         : 
                         
                         <Link to="/signup" 

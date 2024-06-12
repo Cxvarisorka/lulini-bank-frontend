@@ -3,12 +3,12 @@ import { MainInfoContext } from "../../context/mainFetchInfo";
 import TopDashboard from "./dashboardParts/topDashboard";
 import { dataContext } from "../../context/dataContext";
 
-const SendForm = ({formData, handleInputChange, countries, rates, recipientInfo, sendMoney}) => {
+const SendForm = ({formData, handleInputChange, rates, recipientInfo, sendMoney}) => {
 
     const inputClass = "p-3 w-full rounded-lg";
 
+
     const handleFormSubmit = (e) => {
-        console.log(formData)
         e.preventDefault();
         if(formData.amount != 0 && formData.recipientInformation) {
             sendMoney({...formData})
@@ -20,30 +20,7 @@ const SendForm = ({formData, handleInputChange, countries, rates, recipientInfo,
     return (
         <form onSubmit={(e) => handleFormSubmit(e)} className="flex xl:col-span-4 lg:col-span-3 flex-col gap-8 bg-purple-50 p-8 rounded-lg">
                 <p className="lg:text-xl text-lg">Send Money</p>
-                <div className="flex w-full flex-col gap-2">
-                        <label className=" lg:text-base text-sm" htmlFor="send">Sending Country</label>
-                        <select className={inputClass} id="send" name="sendingCountry" onChange={(e) => handleInputChange(e)} value={formData.sendingCountry}>
-                            {
-                                countries.map((obj, i) => {
-                                    return (
-                                        <option key={i} value={obj.name.common}>{obj.name.common}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                </div>
-                <div className="flex w-full flex-col gap-2">
-                        <label className=" lg:text-base text-sm" htmlFor="receive">Receiving Country</label>
-                        <select className={inputClass} id="receive" name="receivingCountry" onChange={(e) => handleInputChange(e)} value={formData.receivingCountry}>
-                            {
-                                countries.map((obj, i) => {
-                                    return (
-                                        <option key={i} value={obj.name.common}>{obj.name.common}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                </div>
+                
                 <div className="flex w-full flex-col gap-2">
                         <label className=" lg:text-base text-sm" htmlFor="sender">Sender's Currency</label>
                         <select className={inputClass} id="sender" name="senderCurrency" onChange={(e) => handleInputChange(e)} value={formData.senderCurrency}>
@@ -147,8 +124,6 @@ const SendMoney = () => {
     const recipientInfo = account?.recipients ? account?.recipients : [] ;
 
     const [formData, setFormData] = useState({
-        sendingCountry: account?.country,
-        receivingCountry: recipientInfo[0]?.country,
         senderAmount: "0",
         senderCurrency: "USD",
         recipientCurrency: "USD",
