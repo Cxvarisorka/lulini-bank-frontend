@@ -33,28 +33,50 @@ const DataProvider = ({ children }) => {
     
 
     // Function to register a new user account
-    const registerFunc = (registerInfo) => {
+    const registerFunc = async (registerInfo) => {
+        try{
+            const response = await fetch('http://localhost:3000/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({...registerInfo, bankNumber: generateBankNumber(), transactions: []}),
+            });
+
+            console.log('Send request')
+            
+            const data = response.json();
+
+            if(response.ok){
+                toast.success(data.message);
+                return true;
+            }
+
+        } catch(err){
+            toast.error(err.error)
+        }
+
+        
+        
         // Check if an account with the same username or email already exists
-        const accountExists = users.findIndex(
-            acc => acc.username === registerInfo.username || acc.email === registerInfo.email
-        );
+        // const accountExists = users.findIndex(
+        //     acc => acc.username === registerInfo.username || acc.email === registerInfo.email
+        // );
 
         // If account does not exist, add it to the users array
 
         // const date = new Date().toISOString().split('T')[0];
 
-        if (accountExists === -1) {
-            toast.success("Registration successful!");
-            registerInfo.transactions = []
-            registerInfo.bankNumber = generateBankNumber();
-            localStorage.setItem('accounts', JSON.stringify([...users, registerInfo]));
-            setUsers(prevUsers => [...prevUsers, registerInfo]);
+        // if (accountExists === -1) {
+        //     registerInfo.transactions = []
+        //     registerInfo.bankNumber = generateBankNumber();
+        //     localStorage.setItem('accounts', JSON.stringify([...users, registerInfo]));
+        //     setUsers(prevUsers => [...prevUsers, registerInfo]);
             
-            return true;
-        }
+        //     return true;
+        // }
 
-        toast.error("Account already exists!");
-        return false;
+        // return false;
     }
 
     // Function to login a user
