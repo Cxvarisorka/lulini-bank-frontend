@@ -13,20 +13,21 @@ const SignInComponent = () => {
   const {loginFunc} = useContext(dataContext);
   const navigate = useNavigate();
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const result = loginFunc({email, password});
+    const result = await loginFunc({ email, password });
 
-    if(result){
-      navigate('/dashboard')
+    if (result) {
+        navigate('/dashboard');
     }
-
-    console.log(result)
+    
+    console.log(result);
 
     setEmail('');
     setPassword('');
-  }
+  };
+
 
   return (
     <>

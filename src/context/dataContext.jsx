@@ -42,10 +42,10 @@ const DataProvider = ({ children }) => {
                 },
                 body: JSON.stringify({...registerInfo, bankNumber: generateBankNumber(), transactions: []}),
             });
-
-            console.log('Send request')
             
-            const data = response.json();
+            const data = await response.json();
+
+            console.log(data)
 
             if(response.ok){
                 toast.success(data.message);
@@ -56,48 +56,36 @@ const DataProvider = ({ children }) => {
             toast.error(err.error)
         }
 
-        
-        
-        // Check if an account with the same username or email already exists
-        // const accountExists = users.findIndex(
-        //     acc => acc.username === registerInfo.username || acc.email === registerInfo.email
-        // );
-
-        // If account does not exist, add it to the users array
-
-        // const date = new Date().toISOString().split('T')[0];
-
-        // if (accountExists === -1) {
-        //     registerInfo.transactions = []
-        //     registerInfo.bankNumber = generateBankNumber();
-        //     localStorage.setItem('accounts', JSON.stringify([...users, registerInfo]));
-        //     setUsers(prevUsers => [...prevUsers, registerInfo]);
-            
-        //     return true;
-        // }
-
-        // return false;
     }
 
     // Function to login a user
-    const loginFunc = (loginInfo) => {
-        // Find the account with the provided email
-        const accountDoc = users.find(acc => acc.email === loginInfo.email);
+    const loginFunc = async (loginInfo) => {
+        try {
+            const response = await fetch('http://localhost:3000/api/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginInfo),
+            });
+    
+            const data = await response.json();
 
-        // If account not found, return false
-        if (!accountDoc) {
-            toast.error("Account not found!");
+            setAccount(data.account._doc);
+    
+            if (response.ok) {
+                toast.success(data.message);
+                return true;
+            } else {
+                toast.error(data.message);
+                return false;
+            }
+        } catch (err) {
+            toast.error('An error occurred while logging in');
             return false;
         }
-
-        // If password matches, set the account in state and return it
-        if (accountDoc.password === loginInfo.password) {
-            localStorage.setItem('account', JSON.stringify(accountDoc));
-            setAccount(accountDoc);
-            toast.success("Login successful!");
-            return accountDoc;
-        }
-    }
+    };
+    
 
     // Function to logout the current user
     const logoutFunc = () => {
