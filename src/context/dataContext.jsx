@@ -97,7 +97,32 @@ const DataProvider = ({ children }) => {
     }
 
     // Function to change the password of the current user
-    const changePassword = (currentPassword, newPassword, logout) => {
+    const changePassword = async (currentPassword, newPassword, logout, confirmPassword) => {
+
+        try {
+            const response = await fetch('http://localhost:3000/api/changepassword', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({currentPassword, newPassword, account, confirmPassword}),
+            });
+    
+            const data = await response.json();
+
+            setAccount(data.account._doc);
+    
+            if (response.ok) {
+                toast.success(data.message);
+                return true;
+            } else {
+                toast.error(data.message);
+                return false;
+            }
+        } catch (err) {
+            toast.error('An error occurred while logging in');
+            return false;
+        }
         // Check if the current password matches the account's password
         if (account.password !== currentPassword) {
             toast.error("Password is incorrect")
@@ -123,39 +148,68 @@ const DataProvider = ({ children }) => {
         return { success: true };
     }
 
-    const requestLoan = (amount, password, date) => {
+    const requestLoan = async (amount, password, date) => {
+
+        try {
+            const loan = {
+                name: "Loan",
+                type: "in",
+                amount: amount,
+                date: new Date().toISOString(),
+                process: "Completed",
+                from: "USD",
+                to: "USD",
+            }
+
+            const response = await fetch('http://localhost:3000/api/loan', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({password, loan, account}),
+            });
+    
+            const data = await response.json();
+
+            console.log(data,'xd');
+
+            setAccount(data.account._doc);
+    
+            if (data.message) {
+                toast.success(data.message);
+                return true;
+            } else {
+                toast.error(data.message);
+                return false;
+            }
+
+        } catch (err) {
+            toast.error('An error occurred while logging in');
+            return false;
+        }
         
 
-        if(password != account.password){
-            toast.error("Password is incorrect!")
-            return { success: false, error: 'Current password is incorrect.' };
-        } 
-        // Find the index of the account in the users array
-        const accountIndex = users.findIndex(acc => acc.email === account.email);
+        // if(password != account.password){
+        //     toast.error("Password is incorrect!")
+        //     return { success: false, error: 'Current password is incorrect.' };
+        // } 
+        // // Find the index of the account in the users array
+        // const accountIndex = users.findIndex(acc => acc.email === account.email);
 
-        // const newDate = date.toISOString().split('T')[0];
+        // // const newDate = date.toISOString().split('T')[0];
 
-        // Update the transactions in the account state
-        const loan = {
-            name: "Loan",
-            type: "in",
-            amount: amount,
-            date: new Date().toISOString(),
-            process: "Completed",
-            from: "USD",
-            to: "USD",
-        }
+        // // Update the transactions in the account state
 
-        users[accountIndex].transactions.push({...loan});
+        // users[accountIndex].transactions.push({...loan});
 
-        // Update localStorage with the updated users array
-        updateLocalStorage({...account}, users)
+        // // Update localStorage with the updated users array
+        // updateLocalStorage({...account}, users)
 
-        setAccount({...users[accountIndex]});
+        // setAccount({...users[accountIndex]});
 
-        toast.success("Loan is succsesfull!")
+        // toast.success("Loan is succsesfull!")
 
-        return { success: true };
+        // return { success: true };
     }
 
     const addRecipient = (recipientInfo) => {

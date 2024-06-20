@@ -63,7 +63,7 @@ const ChangePassword = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        changePassword(formData.currentPassword, formData.newPassword, formData.logout);
+        changePassword(formData.currentPassword, formData.newPassword, formData.logout, formData.confirmPassword);
     }
 
 
