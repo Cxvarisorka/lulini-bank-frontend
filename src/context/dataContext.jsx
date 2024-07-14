@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // Create a context for managing user data
 const dataContext = createContext();
 
+const serverApi = "https://lulini-bank-backend-production.up.railway.app/api";
+
 
 // Component for providing data context to the application
 const DataProvider = ({ children }) => {
@@ -59,7 +61,7 @@ const DataProvider = ({ children }) => {
     // Function to login a user
     const loginFunc = async (loginInfo) => {
         try {
-            const response = await fetch('http://localhost:3000/api/signin', {
+            const response = await fetch(`${serverApi}/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,7 +98,7 @@ const DataProvider = ({ children }) => {
     // Function to change the password of the current user
     const changePassword = async (currentPassword, newPassword, logout, confirmPassword) => {
         try {
-            const response = await fetch('http://localhost:3000/api/changepassword', {
+            const response = await fetch(`${serverApi}/changepassword`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -134,7 +136,7 @@ const DataProvider = ({ children }) => {
                 to: "USD",
             }
 
-            const response = await fetch('http://localhost:3000/api/loan', {
+            const response = await fetch(`${serverApi}/loan`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -185,7 +187,7 @@ const DataProvider = ({ children }) => {
 
     const addRecipient = async (recipientInfo) => {
         try {
-            const response = await fetch('http://localhost:3000/api/addrecipient', {
+            const response = await fetch(`${serverApi}/addrecipient`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
