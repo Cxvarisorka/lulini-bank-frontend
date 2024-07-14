@@ -37,7 +37,7 @@ const DataProvider = ({ children }) => {
 
     const registerFunc = async (registerInfo) => {
         try {
-            const response = await fetch('http://localhost:3000/api/signup', {
+            const response = await fetch(`${serverApi}/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
