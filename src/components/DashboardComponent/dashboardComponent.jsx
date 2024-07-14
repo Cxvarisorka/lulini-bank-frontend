@@ -52,7 +52,6 @@ const DashboardComponent = () => {
   const {account} = useContext(dataContext);
   const navigate = useNavigate();
 
-  console.log(account)
 
   useEffect(() => {
     if(!account) navigate("/signin")

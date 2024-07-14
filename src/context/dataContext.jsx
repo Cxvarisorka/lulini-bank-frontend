@@ -15,6 +15,7 @@ const DataProvider = ({ children }) => {
     // Hook for programmatic navigation
     const navigate = useNavigate();
 
+
     const updateLocalStorage = (account, users) => {
         localStorage.setItem('accounts', JSON.stringify(users));
         localStorage.setItem('account', JSON.stringify(account));
@@ -32,30 +33,27 @@ const DataProvider = ({ children }) => {
     }
     
 
-    // Function to register a new user account
     const registerFunc = async (registerInfo) => {
-        try{
+        try {
             const response = await fetch('http://localhost:3000/api/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({...registerInfo, bankNumber: generateBankNumber(), transactions: []}),
+                body: JSON.stringify({ ...registerInfo, bankNumber: generateBankNumber(), transactions: [], recipients: [] }),
             });
-            
+    
             const data = await response.json();
-
-            console.log(data)
-
-            if(response.ok){
+    
+            if (response.ok) {
                 toast.success(data.message);
                 return true;
+            } else {
+                throw new Error(data.message);
             }
-
-        } catch(err){
-            toast.error(err.error)
+        } catch (err) {
+            toast.error(err.message); // Use err.message to get the correct error message
         }
-
     }
 
     // Function to login a user
@@ -70,9 +68,9 @@ const DataProvider = ({ children }) => {
             });
     
             const data = await response.json();
+            setAccount(data.account);
 
-            setAccount(data.account._doc);
-    
+
             if (response.ok) {
                 toast.success(data.message);
                 return true;
@@ -86,7 +84,6 @@ const DataProvider = ({ children }) => {
         }
     };
     
-
     // Function to logout the current user
     const logoutFunc = () => {
         // Clear the current account from state
@@ -98,7 +95,6 @@ const DataProvider = ({ children }) => {
 
     // Function to change the password of the current user
     const changePassword = async (currentPassword, newPassword, logout, confirmPassword) => {
-
         try {
             const response = await fetch('http://localhost:3000/api/changepassword', {
                 method: 'PUT',
@@ -110,7 +106,7 @@ const DataProvider = ({ children }) => {
     
             const data = await response.json();
 
-            setAccount(data.account._doc);
+            setAccount(data.account);
     
             if (response.ok) {
                 toast.success(data.message);
@@ -123,32 +119,9 @@ const DataProvider = ({ children }) => {
             toast.error('An error occurred while logging in');
             return false;
         }
-        // Check if the current password matches the account's password
-        if (account.password !== currentPassword) {
-            toast.error("Password is incorrect")
-            return { success: false, error: 'Current password is incorrect.' };
-        }
-
-        // Find the index of the account in the users array
-        const accountIndex = users.findIndex(acc => acc.email === account.email);
-
-        // Update the password in the users array
-        users[accountIndex].password = newPassword;
-
-        // Update the password in the account state
-        setAccount((curValue) => ({ ...curValue, password: newPassword }));
-
-        updateLocalStorage(account, users);
-
-        // Logout if specified
-        if (logout) logoutFunc();
-
-        // Return success
-        toast.success("Succsesfully changed!")
-        return { success: true };
     }
 
-    const requestLoan = async (amount, password, date) => {
+    const requestLoan = async (amount, password) => {
 
         try {
             const loan = {
@@ -171,11 +144,9 @@ const DataProvider = ({ children }) => {
     
             const data = await response.json();
 
-            console.log(data,'xd');
-
-            setAccount(data.account._doc);
+            setAccount(data.account);
     
-            if (data.message) {
+            if (response.ok) {
                 toast.success(data.message);
                 return true;
             } else {
@@ -212,27 +183,39 @@ const DataProvider = ({ children }) => {
         // return { success: true };
     }
 
-    const addRecipient = (recipientInfo) => {
-        const accountExists = users.findIndex(
-            acc => acc.username === recipientInfo.username && acc.email === recipientInfo.email
-        );
+    const addRecipient = async (recipientInfo) => {
+        try {
+            const response = await fetch('http://localhost:3000/api/addrecipient', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: recipientInfo.email, username: recipientInfo.username, account }),
+            });
 
-        if(accountExists != -1){
-            account.recipients.push({...users[accountExists]});
-            setAccount({...account});
-
-            updateLocalStorage(account, users)
-            
-            toast.success("Recipient succsesfully added!")
-            return { success: true };
+            console.log({ email: recipientInfo.email, username: recipientInfo.username, account })
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                if (data.account) {
+                    setAccount(data.account);
+                }
+                toast.success(data.message);
+                return true;
+            } else {
+                // Display the error message from the server response
+                throw new Error(data.message);
+            }
+        } catch (err) {
+            // Display the error message from the catch block
+            toast.error(err.message);
+            return false;
         }
-        
-        toast.error("Recipient already added or recipient is not exsist in Lulini Bank")
-        return { success: false, message: "Recipient already added or recipient is not exsist in Lulini Bank" };
     }
+    
 
     const sendMoney = (formData) => {
-        console.log(formData, 'formd')
         const recipientEmail = formData.recipientInformation.email;
         const senderAmount = parseInt(formData.senderAmount, 10);
         const accountExists = users.findIndex(obj => obj.email === recipientEmail);
@@ -285,19 +268,19 @@ const DataProvider = ({ children }) => {
         return { success: true, message: "Transaction completed successfully" };
     }
 
-    useEffect(() => {
-        const storedAccount = localStorage.getItem('account');
-        const storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
+    // useEffect(() => {
+    //     const storedAccount = localStorage.getItem('account');
+    //     const storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
 
-        if (storedAccount) {
-            const parsedAccount = JSON.parse(storedAccount);
-            setAccount(parsedAccount);
-            navigate('/dashboard')
-        }
-        if(storedAccounts){
-            setUsers(storedAccounts);
-        }
-    }, [])
+    //     if (storedAccount) {
+    //         const parsedAccount = JSON.parse(storedAccount);
+    //         setAccount(parsedAccount);
+    //         navigate('/dashboard')
+    //     }
+    //     if(storedAccounts){
+    //         setUsers(storedAccounts);
+    //     }
+    // }, [])
 
 
     // Provide the data context value to children components

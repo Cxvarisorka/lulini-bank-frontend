@@ -19,10 +19,10 @@ const SignInComponent = () => {
     const result = await loginFunc({ email, password });
 
     if (result) {
-        navigate('/dashboard');
+      navigate('/dashboard');
     }
     
-    console.log(result);
+    
 
     setEmail('');
     setPassword('');

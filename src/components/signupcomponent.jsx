@@ -69,10 +69,10 @@ const SignUpComponent = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const status = registerFunc({...formData, recipients: []});
+    const status = await registerFunc({...formData, recipients: []});
 
     if (status) {
       navigate("/signin")
