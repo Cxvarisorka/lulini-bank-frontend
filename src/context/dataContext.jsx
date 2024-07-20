@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // Create a context for managing user data
 const dataContext = createContext();
 
-const serverApi = "https://lulini-bank-backend-production.up.railway.app/api";
+const serverApi = "https://lulini-bank-backend.onrender.com/api";
 
 
 // Component for providing data context to the application
