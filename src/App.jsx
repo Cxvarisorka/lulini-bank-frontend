@@ -26,7 +26,6 @@ function App() {
   return (
     <>
       <Navbar />
-      <ToastContainer />
       <div>
           <Routes>
             <Route path='/' element={<Home />} />
