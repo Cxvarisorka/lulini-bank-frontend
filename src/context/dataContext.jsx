@@ -220,7 +220,7 @@ const DataProvider = ({ children }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({senderEmail:account.email, recipientEmail:formData.recipientInformation.email, senderAmount:parseFloat(formData.senderAmount)})
+                body: JSON.stringify({senderEmail:account.email, recipientEmail:formData.recipientInformation.email, senderAmount:parseFloat(formData.senderAmount), senderCurrency: formData.senderCurrency, recipientCurrency: formData.recipientCurrency})
             })
         } catch(err) {
 
@@ -241,7 +241,7 @@ const DataProvider = ({ children }) => {
         //     return { success: false, message:"Not enough money to complete transactions"  };
         // }
 
-        // // Create a new transaction for the recipient
+        // Create a new transaction for the recipient
         // const recipientTransaction = {
         //     fullname: account.fullname,
         //     type: "in",
